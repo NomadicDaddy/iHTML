@@ -1,0 +1,41 @@
+<iINCLUDE NAME="errorHandler.inc">
+<iINCLUDE NAME="isNumber.ifunc">
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML><HEAD><TITLE></TITLE></HEAD><BODY BGCOLOR="#FFFFFF">
+
+<PRE>
+isNumber Function v1.0.23.1
+Created by Vegard Riseng.  iFunc'd by Phillip Beazley.
+
+Syntax:
+ iFUNCCALL ALIAS="isNumber"
+ SRC="string to test"
+
+Results:
+ 0 = FALSE		Not a valid number.
+ 1 = TRUE		Is a valid integer.
+ 2 = TRUE		Is a valid floating point number.
+
+Revision History:
+ 1.0.x.1		-- Original. [VR]
+ 1.0.23.1		-- iFunc'd. [PB]
+</PRE>
+
+<B>Examples:</B><BR><BR>
+This following examples demonstrate various uses of the <B>isNumber</B> function.<BR><BR>
+
+<FONT SIZE="-1">0 = FALSE, 1 = TRUE (integer), 2 = TRUE (float)</FONT><BR><BR>
+
+<TABLE BORDER=0 CELLSPACING=3 CELLPADDING=2>
+<TR><TD>9.9499.9999991.7949999999999</TD><TD><iFUNCCALL ALIAS="isNumber" SRC="9.9499.9999991.7949999999999"></TD></TR>
+<TR><TD>9.94999313949949999999999999</TD><TD><iFUNCCALL ALIAS="isNumber" SRC="9.94999313949949999999999999"></TD></TR>
+<TR><TD>9999999999917949999999999999</TD><TD><iFUNCCALL ALIAS="isNumber" SRC="9999999999917949999999999999"></TD></TR>
+<TR><TD>2349879888zz8282932382823888</TD><TD><iFUNCCALL ALIAS="isNumber" SRC="2349879888zz8282932382823888"></TD></TR>
+<TR><TD>234987988834828293238282388.</TD><TD><iFUNCCALL ALIAS="isNumber" SRC="234987988834828293238282388."></TD></TR>
+<TR><TD>.2349879888zz828293238282388</TD><TD><iFUNCCALL ALIAS="isNumber" SRC=".2349879888zz828293238282388"></TD></TR>
+<TR><TD>.234987988823828293238282388</TD><TD><iFUNCCALL ALIAS="isNumber" SRC=".234987988823828293238282388"></TD></TR>
+<TR><TD>a2349879888zz828293238282388</TD><TD><iFUNCCALL ALIAS="isNumber" SRC="a2349879888zz828293238282388"></TD></TR>
+<TR><TD>sdfkalssdkchsdjkcsdkjhsdcjkh</TD><TD><iFUNCCALL ALIAS="isNumber" SRC="sdfkalssdkchsdjkcsdkjhsdcjkh"></TD></TR>
+</TABLE>
+
+</BODY></HTML>

@@ -1,0 +1,187 @@
+<iREMBLOCK>
+adminware iMSMail Function v1.12.246.1
+Copyright © 2001-2002 adminware, inc.  All rights reserved.
+http://adminware.com/
+
+Syntax:
+ iFUNCCALL ALIAS="iMSMail"
+ [SENDTO="<email recipient(s)>"]						('')				Mail File
+ [SENDFROM="<return address>"]						(<>)				Mail File
+ [SMTPTO="<email recipient(s)>"]						(:SENDTO)			Control File
+ [SMTPFROM="<return address>"]						(:SENDFROM)		Control File
+ [REPLYTO="<email address>"]							()				Mail File
+ [RETURNPATH="<return address>"]						()				Mail File
+ [ERRORSTO="<return address>"]						()				Mail File
+ [SENDER="<return address>"]							()				Mail File
+ [FAILTO="<email address>"]							()				Control File
+ [WARNTO="<email address>"]							()				Control File
+ [LOG="YES/NO"]									(NYI)			n/a
+ [PRIORITY="<mail priority>"]							(5)				Control File
+ [ATTACHMENTS="<attachment(s)>"]						(NYI)			Mail File
+ [RFC822ATTACHMENT="<email attachment>"]				(NYI)			Mail File
+ [QUERY="<email query>"]								()				n/a
+ [QUERYFIELD="<field in query>"]						()				n/a
+ [SPOOLDIR="<spool directory>"]						(C:\iMS\Out)	n/a
+ [WORDWRAP="<maximum length of line>"]					(80)				n/a
+ [SUBJECT="<email subject>"]							()				Mail File
+ BODY="<email body>"								()				Mail File
+ [HTML="<html encoded email body>"]					()				Mail File
+ [EMAILFILE="<raw email file">]						(NYI)			n/a
+ [CREATEMAILFILEONLY="YES/NO"]						(NO)				n/a
+ [GETMAILFILENAME="YES/NO"]							(NO)				n/a
+ [USEMAILFILENAME="<filename>"]						()				n/a
+ [SAVECOPY="YES/NO"]								(NO)				n/a
+ [SAVEDIR="<directory>"]								()				n/a
+ [DELETEMAILFILE="YES/NO"]							(NYI)			n/a
+ [AUTHUSER="<User name for SMTP Authentication>"]			(NYI)			Control File
+ [AUTHPASS="<Password for SMTP Authentication>"]			(NYI)			Control File
+ [MX="<Mail Server(s) to send mail to>"]				(Use MX Lookups)	Control File
+ [SMTPPORT="<SMTP Port of Mail Server to send mail to>"]	(25)				Control File
+ [HEADER_xxxxx="<header value>"]						(NYI)			?
+ [PARSETOKENS="YES/NO"]								(NO)				Control File
+ [TOKENS="<token list>"]								()				Control File
+ [TOKENVALUES="<token value list>"]					()				Control File
+ [HOSTNAME="<domain name to HELO with>"]				{}				Both Files
+ [ORGANIZATION="<organization name>"]					{}				Mail File
+ [XPRIORITY="<mail priority>"]						{}				Mail File
+ [RETURNRECEIPTTO="<email address>"]					{}				Mail File
+ [LISTSUBURL="<URL for List Subscription>"]				{}				Mail File
+ [LISTUNSUBURL="<URL for List Unsubscription>"]			{}				Mail File
+
+NYI = Not Yet Implemented
+
+Note:  TOKENS and TOKENSLIST are pipe-delimited (|).
+
+Results:
+ Nothing, if successful.  An error message if a problem occurred.
+
+Revision History:
+ 1.0.104.1	-- Original. [PB]
+ 1.1.109.1	-- Added CREATEMAILFILEONLY, SAVECOPY, SAVEDIR, PARSETOKENS, TOKENS, TOKENVALUES, GETMAILFILENAME, USEMAILFILENAME parameter handling. [PB]
+ 1.11.123.1	-- Fixed MIME Boundary Issue. [PB]
+ 1.12.246.1	-- Added XPRIORITY and RETURNRECEIPTTO. [PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="iMSMail"><iFORMAT>
+
+<iREM -- Check Directives -- >
+<iIF EXPR='(<iSTRCMP SRC=":SENDTO" DST=""> AND <iSTRCMP SRC=":SMTPTO" DST=""> AND (<iSTRCMP SRC=":QUERY" DST=""> OR <iSTRCMP SRC=":QUERYFIELD" DST="">)) OR <iSTRCMP SRC=":BODY" DST="">' ALIAS="checkDirectives">
+	<iSETERROR ERROR="710" DETAIL="asdfsadasda" HINTS="sdafasdasdasdasdadadasds">
+</iIF ALIAS="checkDirectives">
+
+<iREM -- Setup Defaults -- >
+<iSET errorMsg="">
+<iDEFAULT NAME="SENDTO" VALUE="">
+<iDEFAULT NAME="SENDFROM" VALUE="<>">
+<iDEFAULT NAME="SMTPTO" VALUE=":SENDTO">
+<iDEFAULT NAME="SMTPFROM" VALUE=":SENDFROM">
+<iDEFAULT NAME="REPLYTO" VALUE="">
+<iDEFAULT NAME="RETURNPATH" VALUE="">
+<iDEFAULT NAME="ERRORSTO" VALUE="">
+<iDEFAULT NAME="SENDER" VALUE=":SENDFROM">
+<iDEFAULT NAME="FAILTO" VALUE="">
+<iDEFAULT NAME="WARNTO" VALUE="">
+<iDEFAULT NAME="PRIORITY" VALUE="5">
+<iDEFAULT NAME="QUERY" VALUE="">
+<iDEFAULT NAME="QUERYFIELD" VALUE="">
+<iDEFAULT NAME="SPOOLDIR" VALUE="c:\ims\outgoing">
+<iDEFAULT NAME="WORDWRAP" VALUE="80">
+<iDEFAULT NAME="SUBJECT" VALUE="">
+<iDEFAULT NAME="BODY" VALUE="">
+<iDEFAULT NAME="HTML" VALUE="">
+<iDEFAULT NAME="CREATEMAILFILEONLY" VALUE="NO">
+<iDEFAULT NAME="GETMAILFILENAME" VALUE="NO">
+<iDEFAULT NAME="USEMAILFILENAME" VALUE="">
+<iDEFAULT NAME="SAVECOPY" VALUE="NO">
+<iDEFAULT NAME="SAVEDIR" VALUE="">
+<iDEFAULT NAME="MX" VALUE="">
+<iDEFAULT NAME="SMTPPORT" VALUE="25">
+<iDEFAULT NAME="PARSETOKENS" VALUE="NO">
+<iDEFAULT NAME="TOKENS" VALUE="">
+<iDEFAULT NAME="TOKENVALUES" VALUE="">
+<iDEFAULT NAME="HOSTNAME" VALUE="">
+<iDEFAULT NAME="ORGANIZATION" VALUE="">
+<iDEFAULT NAME="LISTSUBURL" VALUE="">
+<iDEFAULT NAME="LISTUNSUBURL" VALUE="">
+<iDEFAULT NAME="MAILER" VALUE="iMSMail Function v1.11.123.1 <http://adminware.com/>">
+<iDEFAULT NAME="XPRIORITY" VALUE="">
+<iDEFAULT NAME="RETURNRECEIPTTO" VALUE="">
+
+<iREM -- Check/Re-Format SPOOLDIR -- >
+<iREPLACE VAR="SPOOLDIR" SRC="/" DST="\">
+<iIF COND=<iSTRCMP SRC=`<iSTRRIGHT SRC=":SPOOLDIR" NUM=1>` DST="\"> ALIAS="removeTrail">
+	<iSTRLEFT SRC=":SPOOLDIR" NUM=<iEVAL EXPR='<iSTRLEN SRC=":SPOOLDIR"> - 1'> OUTVAR="SPOOLDIR">
+</iIF ALIAS="removeTrail">
+<iIF NOTCOND=<iDIR PATH=":SPOOLDIR" FIRST=TRUE OP=EXISTS>>
+	<iSTRCAT DST="errorMsg" SRC="The SPOOLDIR does not exist or cannot be written to.<BR>">
+</iIF>
+
+<iIF COND=<iSTRCMP SRC=":errorMsg" DST=""> ALIAS="noError">
+	<iDATETIME FMT="%Y%m%d%H%M%S" OUTVAR="dString">
+	<iDATETIME FMT="%A, %d %b %Y %H:%M:%S -0500" OUTVAR="fullDate">
+	<iSTRRIGHT SRC=<iEVAL EXPR=`<iTICKS>*10000` PREC=0> NUM=6 OUTVAR="tString">
+	<iSET cNum=":dString:tString">
+	<iIF COND=<iSTRCMP SRC=":GETMAILFILENAME" DST="YES">>:cNum</iIF>
+	<iIF NOTCOND=<iSTRCMP SRC=":USEMAILFILENAME" DST=""> ALIAS="useMFN">
+		<iSET cFile=":cNum_:USEMAILFILENAME" mFile=":USEMAILFILENAME">
+	<iELSE ALIAS="useMFN">
+		<iSET cFile=":cNum_:cNum" mFile=":cNum">
+	</iIF ALIAS="useMFN">
+	<iSTRCAT DST="cFile" SRC=".mail">
+	<iSTRCAT DST="mFile" SRC=".mbx">
+	<iIF COND=<iSTRCMP SRC=":USEMAILFILENAME" DST=""> ALIAS="useMFN">
+		<iSET mailFile="">
+		<iIF NOTCOND=<iSTRCMP SRC=":RETURNPATH" DST="">><iSTRCAT DST="mailFile" SRC=`Return-Path: :RETURNPATH:i$crlf`></iIF>
+		<iSTRCAT DST="mailFile" SRC=`To: :SENDTO:i$crlf`>
+		<iIF NOTCOND=<iSTRCMP SRC=":SENDFROM" DST="">><iSTRCAT DST="mailFile" SRC=`From: :SENDFROM:i$crlf`></iIF>
+		<iIF NOTCOND=<iSTRCMP SRC=":ORGANIZATION" DST="">><iSTRCAT DST="mailFile" SRC=`Organization: :ORGANIZATION:i$crlf`></iIF>
+		<iIF NOTCOND=<iSTRCMP SRC=":REPLYTO" DST="">><iSTRCAT DST="mailFile" SRC=`Reply-To: :REPLYTO:i$crlf`></iIF>
+		<iSTRCAT DST="mailFile" SRC=`Subject: :SUBJECT:i$crlf`>
+		<iSTRCAT DST="mailFile" SRC=`X-Mailer: :MAILER:i$crlf`>
+		<iIF NOTCOND=<iSTRCMP SRC=":XPRIORITY" DST="">><iSTRCAT DST="mailFile" SRC=`X-Priority: :XPRIORITY:i$crlf`></iIF>
+		<iIF NOTCOND=<iSTRCMP SRC=":RETURNRECEIPTTO" DST="">>
+			<iREPLACE VAR="RETURNRECEIPTTO" SRC="<" DST="">
+			<iREPLACE VAR="RETURNRECEIPTTO" SRC=">" DST="">
+			<iSTRCAT DST="mailFile" SRC=`Disposition-Notification-To: <:RETURNRECEIPTTO>:i$crlf`>
+		</iIF>
+		<iIF NOTCOND=<iSTRCMP SRC=":ERRORSTO" DST="">><iSTRCAT DST="mailFile" SRC=`Errors-To: :ERRORSTO:i$crlf`></iIF>
+		<iIF NOTCOND=<iSTRCMP SRC=":SENDER" DST="">><iSTRCAT DST="mailFile" SRC=`Sender: :SENDER:i$crlf`></iIF>
+		<iIF NOTCOND=<iSTRCMP SRC=":LISTSUBURL" DST="">><iSTRCAT DST="mailFile" SRC=`List-Subscribe: :LISTSUBURL:i$crlf`></iIF>
+		<iIF NOTCOND=<iSTRCMP SRC=":LISTUNSUBURL" DST="">><iSTRCAT DST="mailFile" SRC=`List-Unsubscribe: :LISTUNSUBURL:i$crlf`></iIF>
+		<iIF NOTCOND=<iSTRCMP SRC=":HTML" DST=""> ALIAS="isHTML">
+			<iIF COND=<iSTRCMP SRC=":HOSTNAME" DST="">><iSET boundary="onvix.com"><iELSE><iSET boundary=":HOSTNAME"></iIF><iSTRCAT DST="boundary" SRC="==">
+			<iSTRCAT DST="mailFile" SRC=`MIME-Version: 1.0:i$crlf<iREM>Content-Type: multipart/alternative; boundary=":tString:boundary":i$crlf<iREM>Content-Transfer-Encoding: 7bit:i$crlf`>
+		</iIF ALIAS="isHTML">
+		<iSTRCAT DST="mailFile" SRC="Date: :fullDate:i$crlf:i$crlf">
+		<iIF NOTCOND=<iSTRCMP SRC=":HTML" DST=""> ALIAS="doBody">
+			<iSTRCAT DST="mailFile" SRC=`--:tString:boundary:i$crlf<iREM>Content-Type: text/plain; charset="us-ascii":i$crlf:i$crlf:BODY:i$crlf:i$crlf<iREM>--:tString:boundary:i$crlf<iREM>Content-Type: text/html; charset="us-ascii":i$crlf:i$crlf:HTML:i$crlf:i$crlf<iREM>--:tString:boundary<iREM>--:i$crlf:i$crlf.:i$crlf`>
+		<iELSE ALIAS="doBody">
+			<iSTRCAT DST="mailFile" SRC=`:BODY:i$crlf:i$crlf.:i$crlf`>
+		</iIF ALIAS="doBody">
+		<iFILE NAME=":SPOOLDIR\:mFile" OP=WRITE DATA=`:mailFile`>
+		<iIF EXPR='<iSTRCMP SRC=":SAVECOPY" DST="YES"> AND NOT <iSTRCMP SRC=":SAVEDIR" DST="">'>
+			<iFILE NAME=":SAVEDIR\:mFile" OP=WRITE DATA=`:mailFile`>
+		</iIF>
+	</iIF ALIAS="useMFN">
+	<iIF COND=<iSTRCMP SRC=":CREATEMAILFILEONLY" DST="NO"> ALIAS="createControl">
+		<iSET controlFile=`[Control]:i$crlf<iREM>Status=UNLOCKED:i$crlf<iREM>[Delivery]:i$crlf<iREM>Start=:dString:i$crlf<iREM>Next=:dString:i$crlf<iREM>Priority=:PRIORITY:i$crlf<iREM>[Parameters]:i$crlf<iREM>SMTPFrom=:SMTPFROM:i$crlf<iREM>MX=:MX:i$crlf<iREM>ServerPort=:SMTPPORT:i$crlf<iREM>FailTo=:FAILTO:i$crlf<iREM>WarnTo=:WARNTO:i$crlf<iREM>HostName=:HOSTNAME:i$crlf<iREM>ParseTokens=:PARSETOKENS:i$crlf`>
+		<iIF COND=<iSTRCMP SRC=":PARSETOKENS" DST="YES"> ALIAS="parseTokens">
+			<iSTRCAT DST="controlFile" SRC=`[Tokens]:i$crlf`>
+			<iLISTCREATE NAME="tokens_list" SRC="TOKENS" TYPE=VARIABLE DELIM="" SEP="|">
+			<iLISTCREATE NAME="tokenvalues_list" SRC="TOKENVALUES" TYPE=VARIABLE DELIM="" SEP="|">
+			<iLISTGET NAME="tokens_list" OP=COUNT OUTVAR="tokens_count">
+			<iLOOP INITIAL=1 FINAL=:tokens_count ALIAS="tokens_loop">
+				<iSTRCAT DST="controlFile" SRC=`<iLISTGET NAME="tokens_list" OP=GETAT INDEX=:tokens_loop SEP="|">=<iLISTGET NAME="tokenvalues_list" OP=GETAT INDEX=:tokens_loop SEP="|">:i$crlf`>
+			</iLOOP ALIAS="tokens_loop">
+		</iIF ALIAS="parseTokens">
+		<iSTRCAT DST="controlFile" SRC=`[Recipients]:i$crlf`>
+		<iLISTCREATE NAME="recipient_list" SRC="SMTPTO" TYPE=VARIABLE DELIM="">
+		<iLISTGET NAME="recipient_list" OP=COUNT OUTVAR="recipient_count">
+		<iLOOP INITIAL=1 FINAL=:recipient_count ALIAS="recipient_loop">
+			<iSTRCAT DST="controlFile" SRC=`<iLISTGET NAME="recipient_list" OP=GETAT INDEX=:recipient_loop>=Pending:i$crlf`>
+		</iLOOP ALIAS="recipient_loop">
+		<iFILE NAME=":SPOOLDIR\:cFile" OP=WRITE DATA=`:controlFile`>
+	</iIF ALIAS="createControl">
+</iIF ALIAS="noError">
+
+</iFORMAT></iFUNCTION ALIAS="iMSMail">

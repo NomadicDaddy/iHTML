@@ -1,0 +1,35 @@
+<iREMBLOCK>
+isNumber Function v1.0.23.1
+Created by Vegard Riseng.  iFunc'd by Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="isNumber"
+ SRC="string to test"
+
+Results:
+ 0 = FALSE	Not a valid number.
+ 1 = TRUE		Is a valid integer.
+ 2 = TRUE		Is a valid floating point number.
+
+Revision History:
+ 1.0.x.1		-- Original. [VR]
+ 1.0.23.1		-- iFunc'd. [PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="isNumber"><iFORMAT>
+
+	<iIF COND=<iISDIGIT SRC=":SRC"> ALIAS="isNumber">
+		1
+	<iELSE ALIAS="isNumber">
+		<iSTRKEEP KEEP="." SRC=":SRC" OUTVAR="temp1">
+		<iSTRKEEP OMIT="." SRC=":SRC" OUTVAR="temp2">
+		<iSTRLEN SRC=":temp1" OUTVAR="temp1">
+		<iISDIGIT SRC=":temp2" OUTVAR="temp2">
+		<iIF EXPR="(:temp1 LE 1) AND (:temp2 EQ TRUE)" ALIAS="isDecimal">
+			2
+		<iELSE ALIAS="isDecimal">
+			0
+		</iIF ALIAS="isDecimal">
+	</iIF ALIAS="isNumber">
+
+</iFORMAT></iFUNCTION ALIAS="isNumber">

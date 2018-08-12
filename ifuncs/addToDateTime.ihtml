@@ -1,0 +1,77 @@
+<iINCLUDE NAME="addToDateTime.ifunc">
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML><HEAD><TITLE></TITLE></HEAD><BODY BGCOLOR="#FFFFFF">
+
+<PRE>
+<B>addToDateTime</B> Function v1.1.172.1
+Created by Vegard Riseng and Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="addToDateTime"
+ [FMT="string"]			(%m/%d/%Y %H:%M:%S)
+ [DATE="mm/dd/yyyy hh:mm:ss"]	(Current date/time)
+ [DAYS="int"]				(0)
+ [MONTHS="int"]			(0)
+ [YEARS="int"]				(0)
+ [HOURS="int"]				(0)
+ [MINUTES="int"]			(0)
+ [SECONDS="int"]			(0)
+
+Revision History:
+ 1.0.19.1		-- Original. [VR]
+ 1.1.21.1		-- Addition of fmt argument and time structs. [PB]
+ 1.1.22.2		-- Optimizing and bugfixing. [VR]
+			-- Addition of new bugs.  ;) [PB]
+ 1.1.23.1		-- Strip all space on output and one minor bugfix. [PB]
+ 1.1.169.1	-- Fixed bug with time addition. [PB]
+ 1.1.171.1	-- Workaround whitespace stripping bug caused by iFORMAT [VR/PB]
+ 1.1.172.1	-- Fixed one-digit hour output between 00:00 and 9:59 [VR]
+ 			-- Fixed space delimiter bug in default datetime. [VR]
+			-- Fixed negative hour bug in 12 hour clock formatting. [VR]
+			-- Fixed wrong AM/PM switching. [VR]
+
+To Do:
+ - Add negative adjustment capability.
+ 
+Known bugs:
+ - None.
+</PRE>
+
+<B>Examples:</B><BR><BR>
+This following examples demonstrate various uses of the <B>addToDateTime</B> function.<BR><BR>
+
+<TABLE BORDER=0 CELLSPACING=3 CELLPADDING=2>
+<TR><TD>Today</TD><TD><iDATETIME FMT="%m/%d/%Y %H:%M:%S"></TD></TR>
+<TR><TD>&nbsp + 1 days</TD><TD><iFUNCCALL ALIAS="addToDateTime" DAYS="1"></TD></TR>
+<TR><TD>&nbsp + 31 days</TD><TD><iFUNCCALL ALIAS="addToDateTime" DAYS="31"></TD></TR>
+<TR><TD>&nbsp + 444 days</TD><TD><iFUNCCALL ALIAS="addToDateTime" DAYS="444"></TD></TR>
+<TR><TD>&nbsp + 1 month</TD><TD><iFUNCCALL ALIAS="addToDateTime" MONTHS="1"></TD></TR>
+<TR><TD>&nbsp + 12 months</TD><TD><iFUNCCALL ALIAS="addToDateTime" MONTHS="12"></TD></TR>
+<TR><TD>&nbsp + 1 year</TD><TD><iFUNCCALL ALIAS="addToDateTime" YEARS="1"></TD></TR>
+<TR><TD>&nbsp + 15 days, 8 months, 1 year</TD><TD><iFUNCCALL ALIAS="addToDateTime" DAYS="15" MONTHS="8" YEARS="1"></TD></TR>
+<TR><TD COLSPAN=2>&nbsp;</TD></TR>
+<TR><TD>&nbsp + 12 months (using alternate format %Y-%m-%d %H:%M:%S)</TD><TD><iFUNCCALL ALIAS="addToDateTime" FMT="%Y-%m-%d %H:%M:%S" MONTHS="12"></TD></TR>
+<TR><TD>&nbsp + 3 days (using alternate format %m-%d-%y %I:%M:%S %p)</TD><TD><iFUNCCALL ALIAS="addToDateTime" FMT="%m-%d-%y %I:%M:%S %p" DAYS="3"></TD></TR>
+<TR><TD COLSPAN=2>&nbsp;</TD></TR>
+<TR><TD>&nbsp + 7 minutes</TD><TD><iFUNCCALL ALIAS="addToDateTime" MINUTES="7"></TD></TR>
+<TR><TD>&nbsp + 3 hours</TD><TD><iFUNCCALL ALIAS="addToDateTime" HOURS="3"></TD></TR>
+<TR><TD>&nbsp + 14 seconds</TD><TD><iFUNCCALL ALIAS="addToDateTime" SECONDS="14"></TD></TR>
+<TR><TD>&nbsp + 2 hours, 57 minutes, 34 seconds</TD><TD><iFUNCCALL ALIAS="addToDateTime" HOURS="2" MINUTES="57" SECONDS="34"></TD></TR>
+<TR><TD>&nbsp + 14 hours, 3 minutes, 3 seconds</TD><TD><iFUNCCALL ALIAS="addToDateTime" HOURS="14" MINUTES="3" SECONDS="3"></TD></TR>
+<TR><TD COLSPAN=2>&nbsp;</TD></TR>
+<TR><TD>&nbsp + 15 days, 8 months, 1 year, 2 hours, 57 minutes, 34 seconds</TD><TD><iFUNCCALL ALIAS="addToDateTime" DAYS="15" MONTHS="8" YEARS="1" HOURS="2" MINUTES="57" SECONDS="34"></TD></TR>
+<iREMBLOCK><TR><TD>&nbsp - 1 days, 1 months, 1 year, 1 hours, 1 minutes, 1 seconds</TD><TD><iFUNCCALL ALIAS="addToDateTime" DAYS="-1" MONTHS="-1" YEARS="-1" HOURS="-1" MINUTES="-1" SECONDS="-1"></TD></TR></iREMBLOCK>
+</TABLE>
+
+<iDATETIME OUTVAR="nextDate">
+<PRE>
+1 (+20 seconds) == '<iFUNCCALL ALIAS="addToDateTime" FMT="%Y-%m-%d %H:%M:%S" DATE=":nextDate" SECONDS=20>'
+2 (+20 minutes) == '<iFUNCCALL ALIAS="addToDateTime" FMT="%Y-%m-%d %H:%M:%S" DATE=":nextDate" MINUTES=20>'
+3 (+20 hours)   == '<iFUNCCALL ALIAS="addToDateTime" FMT="%Y-%m-%d %H:%M:%S" DATE=":nextDate" HOURS=20>'
+4 (+20 days)    == '<iFUNCCALL ALIAS="addToDateTime" FMT="%Y-%m-%d %H:%M:%S" DATE=":nextDate" DAYS=20>'
+5 (+20 weeks)   == '<iFUNCCALL ALIAS="addToDateTime" FMT="%Y-%m-%d %H:%M:%S" DATE=":nextDate" DAYS=<iEVAL EXPR='20 * 7' PREC=0>>'
+6 (+20 months)  == '<iFUNCCALL ALIAS="addToDateTime" FMT="%Y-%m-%d %H:%M:%S" DATE=":nextDate" MONTHS=20>'
+7 (+20 years)   == '<iFUNCCALL ALIAS="addToDateTime" FMT="%Y-%m-%d %H:%M:%S" DATE=":nextDate" YEARS=20>'
+</PRE>
+
+</BODY></HTML>

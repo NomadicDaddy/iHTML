@@ -1,0 +1,38 @@
+<iREMBLOCK>
+checkEmail Function v1.01.106.1
+Created by Vegard Riseng.
+
+Syntax:
+ iFUNCCALL ALIAS="checkEmail"
+ EMAIL="email address">		(Email Address to Check)
+
+Revision History:
+ 1.0.75.1		-- Original. [VR]
+ 1.01.106.1	-- Fixed case-sensitivity bug. [PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="checkEmail"><iFORMAT>
+
+<iREMBLOCK>
+	<iREM -- Check Directives -- >
+	<iIF EXPR='NOT <iISDEF VAR="EMAIL"> OR <iSTRCMP SRC=":EMAIL" DST="">' ALIAS="checkDirectives">
+		<iSETERROR ERROR="710" HINTS="You must supply an email address.">
+	</iIF ALIAS="checkDirectives">
+</iREMBLOCK>
+
+	<iDEFAULT NAME="email" VALUE="">
+	<iSTRLWR SRC=":email" OUTVAR="email">
+	<iSTRLEN SRC=":email" OUTVAR="eLen">
+	<iSTRIN SRC=":email" DST="@" OUTVAR="alphaPos1">
+	<iSTRREV SRC=":email" OUTVAR="email">
+	<iSTRIN SRC=":email" DST="@" OUTVAR="alphaPos2">
+	<iSTRIN SRC=":email" DST="." OUTVAR="dotPos">
+	<iSTRKEEP OMIT="abcdefghijklmnopqrstuvwxyz0123456789@.-_" SRC=":email" OUTVAR="email">
+	<iSTRLEN SRC=":email" OUTVAR="illegalChars">
+	<iIF EXPR="(:dotPos GT 2) AND (:alphaPos1 + :alphaPos2 -1 EQ :eLen) AND (:alphaPos2 - :dotPos GE 2) AND (:illegalChars EQ 0) AND (:alphaPos1 GT 1)" ALIAS="emailOK">
+		1
+	<iELSE ALIAS="emailOK">
+		0
+	</iIF ALIAS="emailOK">
+
+</iFORMAT></iFUNCTION ALIAS="checkEmail">

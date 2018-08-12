@@ -1,0 +1,50 @@
+<iINCLUDE NAME="errorHandler.inc">
+<iINCLUDE NAME="formatNumber.ifunc">
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML><HEAD><TITLE></TITLE></HEAD><BODY BGCOLOR="#FFFFFF">
+
+<PRE>
+formatNumber Function v1.0.124.1
+Created by Vegard Riseng.
+
+Syntax:
+ iFUNCTION ALIAS="formatNumber"
+ NUMBER="number to format"		()
+ SEPERATOR="separator to use"		(,)
+
+Results:
+ Formatted number.
+
+Revision History:
+ 1.0.x.1		-- Original. [VR]
+ 1.01.124.1	-- Fixed 'less than 4 digit' bug. [PB]
+ 1.02.124.1	-- Added support for decimal places. [PB]
+</PRE>
+
+<iDEFAULT NAME="step" VALUE="1">
+
+<iCASE ALIAS="step" VALUE="1">
+	<H2>Format number</H2>
+	<P>This function adds thousand seperators to integers.</P>
+	<FORM ACTION=':i_script_name' METHOD="POST">
+		<INPUT TYPE="HIDDEN" NAME="step" VALUE="2">
+		Your Number: <INPUT TYPE="TEXT" NAME="number"><BR>
+		Your Sepetator: <SELECT NAME="seperator">Space<OPTION VALUE=",">Comma<OPTION VALUE="&nbsp;"></SELECT><BR>
+		<INPUT TYPE="SUBMIT">
+	</FORM>
+</iCASE ALIAS="step">
+
+<iCASE ALIAS="step" VALUE="2">
+	<H2>Result</H2>
+	<P>This is your number: <B>:number</B><BR>
+	This is the formatted number: <B><iFUNCCALL ALIAS="formatNumber" NUMBER=":number" SEPERATOR=":seperator"></B></P>
+	<H2>Try again...</H2>
+	<FORM ACTION=':i_script_name' METHOD="POST">
+		<INPUT TYPE="HIDDEN" NAME="step" VALUE="2">
+		Your Number: <INPUT TYPE="TEXT" NAME="number" VALUE=":number"><BR>
+		Your Sepetator: <SELECT NAME="seperator"><OPTION VALUE="&nbsp;">Space<OPTION VALUE=","<iCASE ALIAS="seperator" VALUE=",">SELECTED</iCASE ALIAS="seperator">>Comma</SELECT><BR>
+		<INPUT TYPE="SUBMIT">
+	</FORM>
+</iCASE ALIAS="step">
+
+</BODY></HTML>

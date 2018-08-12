@@ -1,0 +1,18 @@
+Privs (per Board):
+
+Bit # 1 = Edit Post
+Bit # 2 = Delete Post
+Bit # 3 = Open/Close Thread
+Bit # 4 = Delete Thread
+Bit # 5 = Select Icon
+
+Admin:		11111
+Moderator:	
+
+Prefs (Global):
+
+Bit # 1 = Number of Days to Show (# = ID in _Ages)
+Bit # 2 = Show View Profile Buttons in Threads?
+Bit # 3 = Message Preview
+Bit # 4 = Spell Checker
+Bit # 5 = Attach Signature

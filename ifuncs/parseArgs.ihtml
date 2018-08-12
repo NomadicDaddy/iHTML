@@ -1,0 +1,117 @@
+<!iHTML CACHE=TRUE>
+
+<iINCLUDE NAME="errorHandler.inc">
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML><HEAD><TITLE></TITLE></HEAD><BODY BGCOLOR="#FFFFFF">
+
+<PRE>
+parseArgs Include v1.62.312.2
+Created by Vegard Riseng and Phillip Beazley.
+
+Syntax:
+ [iSET TYPE="AUTO, POST or GET"]		(AUTO)
+ [iSET DEBUG="TRUE or FALSE"]			(FALSE)
+ [iSET QUERYSTRING="TRUE or FALSE"]	(FALSE)
+ [iSET BEAUTIFY="TRUE or FALSE"]		(FALSE)
+ [iSET GENFORMINPUT="TRUE or FALSE"]	(FALSE)
+ [iSET NOPASSTHRU="fields not to pass"]	()
+ [iSET PASSTHRU="fields to only pass"]	()
+ [iSET NULLVIEW="null value display"]	([null])
+ iINCLUDE NAME="parseArgs.inc"
+
+Revision History:
+ 1.0.181.1	-- Original. [VR]
+ 1.1.182.1	-- Minor format change.  Addition of null value handling and argView. [PB]
+ 1.1.182.2	-- Minor optimizations.  Changed 'var' to 'arg_'.  Added 'export' of arguments for external use. [PB]
+ 1.2.23.1		-- Addition of POST/GET/POST+GET handling. [PB]
+ 1.3.99.1		-- Addition of QUERYSTRING option and output. [PB]
+ 1.4.200.1	-- Minor fix and added maxArgLength, maxValLength. [PB]
+ 1.5.209.1	-- Rewrote parser engine. [VR]
+ 1.5.209.2	-- Addition of handler for variablenames with spaces (user 404 fix). [VR]
+ 1.5.209.3	-- Speed optimizations of "super parser". [VR]
+ 1.5.210.1	-- Addition of BEAUTIFY option.  Stores the original var name in 'old_#' if it contained special chars. [VR]
+ 1.6.310.1	-- Addition of GENFORMINPUT option.  Creates pass-thru form input strings excluding fields in NOPASSTHRU or including only fields in PASSTHRU. [PB]
+ 1.61.310.1	-- Addition of NULLVIEW option.  This is the value passed if the variable doesn't have a value. [PB]
+ 1.62.312.1	-- Fixed problem with QUERYSTRING and added support for NOPASSTHRU/PASSTHRU. [PB]
+ 1.62.312.2	-- Worked around problem with urlDecode returning non-printable extraneous characters. [PB]
+</PRE>
+
+<B>Examples:</B><BR><BR>
+This following examples demonstrate use of the <B>parseArgs</B> include.<BR><BR>
+
+<iDEFAULT NAME="step" VALUE="1">
+
+<iCASE ALIAS="step" VALUE="2">
+
+	<iDEFAULT NAME="BEAUTIFY" VALUE="FALSE">
+
+	With <B>DEBUG=TRUE</B>:<BR><BR>
+	<iSET DEBUG="TRUE">
+	<iINCLUDE NAME="parseArgs.inc">
+	<HR NOSHADE>
+	<TABLE BORDER=0>
+	<iLOOP INITIAL="1" FINAL=":argCount" ALIAS="listArgs">
+		<iEQ NAME="oldArg" VALUE="old_:listArgs">
+		<iEQ NAME="beautified" VALUE="::oldArg" EVAL="TRUE">
+		<iEQ NAME="variable" VALUE=":arg_:listArgs" EVAL="TRUE">
+		<iEQ NAME="value" VALUE="::variable" EVAL="TRUE">
+		<TR><TD><iIF COND=<iISDEF VAR=":oldArg">>:beautified<iELSE>:variable</iIF></TD><TD>:</TD><TD>:value</TD></TR>
+	</iLOOP ALIAS="listArgs">
+	</TABLE>
+
+	<BR>
+
+	With <B>DEBUG=FALSE</B>:<BR><BR>
+	<iSET DEBUG="FALSE">
+	<iINCLUDE NAME="parseArgs.inc" OUTVAR="argCount">
+	Nothing is actually returned, but using :<iREM>argCount in the statement below, you can see how many arguments were parsed and use the exported variables (shown above).<BR><BR>
+	<iSTRKEEP SRC=":argCount" KEEP="0123456789" OUTVAR="argCount">
+	':argCount' argument(s) were passed.
+
+	<BR><BR>
+
+	With <B>GENFORMINPUT=TRUE</B>, no filters:<BR><BR>
+	<iSET DEBUG="FALSE" GENFORMINPUT="TRUE">
+	<iINCLUDE NAME="parseArgs.inc" OUTVAR="formInputString">
+	<iREPLACE VAR="formInputString" SRC="<" DST="&lt;">
+	<iREPLACE VAR="formInputString" SRC=">" DST="&gt;<BR>">
+	:formInputString
+	<BR><BR>
+
+	With <B>GENFORMINPUT=TRUE</B>, <B>PASSTHRU="step,sortBy_hidden_variable"</B>:<BR><BR>
+	<iSET DEBUG="FALSE" GENFORMINPUT="TRUE" PASSTHRU="step,sortBy_hidden_variable">
+	<iINCLUDE NAME="parseArgs.inc" OUTVAR="formInputString">
+	<iREPLACE VAR="formInputString" SRC="<" DST="&lt;">
+	<iREPLACE VAR="formInputString" SRC=">" DST="&gt;<BR>">
+	:formInputString
+	<BR><BR>
+
+	With <B>GENFORMINPUT=TRUE</B>, <B>NOPASSTHRU="step,sortBy_hidden_variable"</B>:<BR><BR>
+	<iSET DEBUG="FALSE" GENFORMINPUT="TRUE" NOPASSTHRU="step,sortBy_hidden_variable">
+	<iINCLUDE NAME="parseArgs.inc" OUTVAR="formInputString">
+	<iREPLACE VAR="formInputString" SRC="<" DST="&lt;">
+	<iREPLACE VAR="formInputString" SRC=">" DST="&gt;<BR>">
+	:formInputString
+
+</iCASE ALIAS="step">
+
+<iCASE ALIAS="step" VALUE="1">
+
+	<FORM ACTION=':i_script_name' METHOD=POST>
+	<INPUT TYPE=HIDDEN NAME="step" VALUE="2">
+	Beautify? <INPUT TYPE=CHECKBOX NAME="BEAUTIFY" VALUE="TRUE"><BR>
+	<HR NOSHADE>
+	<INPUT TYPE=CHECKBOX NAME="Checkbox1"> CheckBox 1<BR>
+	<INPUT TYPE=CHECKBOX NAME="Checkbox2"> CheckBox 2<BR>
+	<INPUT TYPE=CHECKBOX NAME="Checkbox3"> CheckBox 3<BR>
+	<INPUT TYPE=CHECKBOX NAME="Checkbox4"> CheckBox 4<BR>
+	"try, me" <INPUT TYPE=TEXT NAME="try, me"><BR>
+	"and me" <INPUT TYPE=TEXT NAME="and me"><BR>
+	<INPUT TYPE=HIDDEN NAME="sortBy_hidden_variable" VALUE="picDateTime ASC">
+	<INPUT TYPE=HIDDEN NAME="searchFor_hidden_variable" VALUE="cheese">
+	<INPUT TYPE=SUBMIT VALUE="Go!">
+	</FORM>
+
+</iCASE ALIAS="step">
+
+</BODY></HTML>

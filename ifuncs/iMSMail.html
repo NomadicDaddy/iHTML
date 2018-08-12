@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML><HEAD><TITLE>adminware iMSMail Function v1.11.123.1</TITLE>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript"><!--
+	if (navigator.appName == "Netscape") {
+		document.write("<LINK REL='stylesheet' TYPE='text/css' HREF='http://adminware.com/style/adminware/base_ns.css'>");
+	} else {
+		document.write("<LINK REL='stylesheet' TYPE='text/css' HREF='http://adminware.com/style/adminware/base_ie.css'>");
+	}
+//--></SCRIPT>
+</HEAD><BODY STYLE="overflow:auto;">
+
+<DIV CLASS="appVersion">adminware iMSMail Function v1.12.246.1</DIV>
+<DIV CLASS="copyright">Copyright © 2001-2002 adminware, inc.  All rights reserved.<BR><A HREF="http://adminware.com/">http://adminware.com/</A></DIV><BR>
+
+<TABLE BORDER=0>
+<TR><TD COLSPAN=3>Syntax:</TD></TR>
+<TR><TD COLSPAN=3>iFUNCCALL ALIAS="iMSMail"</TD></TR>
+<TR><TD>[SENDTO="<email recipient(s)>"]</TD>					<TD>('')</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[SENDFROM="<return address>"]</TD>					<TD>(<>)</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[SMTPTO="<email recipient(s)>"]</TD>					<TD>(:SENDTO)</TD>			<TD>Control File</TD></TR>
+<TR><TD>[SMTPFROM="<return address>"]</TD>					<TD>(:SENDFROM)</TD>		<TD>Control File</TD></TR>
+<TR><TD>[REPLYTO="<email address>"]</TD>					<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[RETURNPATH="<return address>"]</TD>					<TD>()</TD>				<TD>Control File</TD></TR>
+<TR><TD>[ERRORSTO="<return address>"]</TD>					<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[FAILTO="<email address>"]</TD>						<TD>()</TD>				<TD>Control File</TD></TR>
+<TR><TD>[WARNTO="<email address>"]</TD>						<TD>()</TD>				<TD>Control File</TD></TR>
+<TR><TD>[LOG="YES/NO"]</TD>								<TD>(NYI)</TD>				<TD>n/a</TD></TR>
+<TR><TD>[PRIORITY="<mail priority>"]</TD>					<TD>(5)</TD>				<TD>Control File</TD></TR>
+<TR><TD>[ATTACHMENTS="<attachment(s)>"]</TD>					<TD>(NYI)</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[RFC822ATTACHMENT="<email attachment>"]</TD>			<TD>(NYI)</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[QUERY="<email query>"]</TD>						<TD>()</TD>				<TD>n/a</TD></TR>
+<TR><TD>[QUERYFIELD="<field in query>"]</TD>					<TD>()</TD>				<TD>n/a</TD></TR>
+<TR><TD>[SPOOLDIR="<spool directory>"]</TD>					<TD>(C:\iMS-SE\Out)</TD>		<TD>n/a</TD></TR>
+<TR><TD>[WORDWRAP="<maximum length of line>"]</TD>			<TD>(80)</TD>				<TD>n/a</TD></TR>
+<TR><TD>[SUBJECT="<email subject>"]</TD>					<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>BODY="<email body>"</TD>							<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[HTML="<html encoded email body>"]</TD>				<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[EMAILFILE="<raw email file">]</TD>					<TD>(NYI)</TD>				<TD>n/a</TD></TR>
+<TR><TD>[CREATEMAILFILEONLY="YES/NO"]</TD>					<TD>(NO)</TD>				<TD>n/a</TD></TR>
+<TR><TD>[GETMAILFILENAME="YES/NO"]</TD>						<TD>(NO)</TD>				<TD>n/a</TD></TR>
+<TR><TD>[USEMAILFILENAME="<filename>"]</TD>					<TD>()</TD>				<TD>n/a</TD></TR>
+<TR><TD>[SAVECOPY="YES/NO"]</TD>							<TD>(NO)</TD>				<TD>n/a</TD></TR>
+<TR><TD>[SAVEDIR="<directory>"]</TD>						<TD>()</TD>				<TD>n/a</TD></TR>
+<TR><TD>[DELETEMAILFILE="YES/NO"]</TD>						<TD>(NYI)</TD>				<TD>n/a</TD></TR>
+<TR><TD>[AUTHUSER="<User name for SMTP Authentication>"]</TD>	<TD>(NYI)</TD>				<TD>Control File</TD></TR>
+<TR><TD>[AUTHPASS="<Password for SMTP Authentication>"]</TD>	<TD>(NYI)</TD>				<TD>Control File</TD></TR>
+<TR><TD>[MX="<Mail Server(s) to send mail to>"]</TD>			<TD>(Use MX Lookups)</TD>	<TD>Control File</TD></TR>
+<TR><TD>[SMTPPORT="<SMTP Port of Mail Server to send to>"]</TD>	<TD>(25)</TD>				<TD>Control File</TD></TR>
+<TR><TD>[HEADER_xxxxx="<header value>"]</TD>					<TD>(NYI)</TD>				<TD>?</TD></TR>
+<TR><TD>[PARSETOKENS="YES/NO"]</TD>						<TD>(NO)</TD>				<TD>Control File</TD></TR>
+<TR><TD>[TOKENS="<token list>"]</TD>						<TD>()</TD>				<TD>Control File</TD></TR>
+<TR><TD>[TOKENVALUES="<token value list>"]</TD>				<TD>()</TD>				<TD>Control File</TD></TR>
+<TR><TD>[HOSTNAME="<domain name to HELO with>"]</TD>			<TD>()</TD>				<TD>Both Files</TD></TR>
+<TR><TD>[ORGANIZATION="<organization name>"]</TD>				<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[XPRIORITY="<mail priority>"]</TD>					<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[RETURNRECEIPTTO="<email address>"]</TD>				<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[LISTSUBURL="<URL for List Subscription>"]</TD>		<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD>[LISTUNSUBURL="<URL for List Unsubscription>"]</TD>		<TD>()</TD>				<TD>Mail File</TD></TR>
+<TR><TD COLSPAN=3>
+	<BR><BR>NYI = Not Yet Implemented
+	<BR><BR>Note:&nbsp; TOKENS and TOKENSLIST are pipe-delimited (|).
+	<BR><BR>Results:<BR>
+	&nbsp; Nothing, if successful.  An error message if a problem occurred.
+	<BR><BR>Revision History:<BR>
+	<TABLE BORDER=0>
+	<TR><TD NOWRAP VALIGN=TOP>&nbsp; 1.0.104.1</TD><TD NOWRAP VALIGN=TOP> -- </TD><TD VALIGN=TOP>Original. [PB]</TD></TR>
+	<TR><TD NOWRAP VALIGN=TOP>&nbsp; 1.1.109.1</TD><TD NOWRAP VALIGN=TOP> -- </TD><TD VALIGN=TOP>Added CREATEMAILFILEONLY, SAVECOPY, SAVEDIR, PARSETOKENS, TOKENS, TOKENVALUES, GETMAILFILENAME, USEMAILFILENAME parameter handling. [PB]</TD></TR>
+	<TR><TD NOWRAP VALIGN=TOP>&nbsp; 1.11.123.1</TD><TD NOWRAP VALIGN=TOP> -- </TD><TD VALIGN=TOP>Fixed MIME Boundary Issue. [PB]</TD></TR>
+	<TR><TD NOWRAP VALIGN=TOP>&nbsp; 1.12.246.1</TD><TD NOWRAP VALIGN=TOP> -- </TD><TD VALIGN=TOP>Added XPRIORITY and RETURNRECEIPTTO. [PB]</TD></TR>
+	</TABLE>
+	<BR><B>Requirements:</B><BR><BR>
+	The <B>iMSMail</B> function requires an inFusion POST Server and write-access to the queue directory of the machine the POST Server resides on.<BR><BR>
+</TR>
+</TABLE>
+
+<B>Examples:</B><BR><BR>
+This following examples demonstrate the use of the <B>iMSMail</B> function.<BR><BR>
+
+Initialize the function once per page...<BR><BR>
+
+<BLOCKQUOTE>&lt;iINCLUDE NAME="iMSMail.ifunc"&gt;</BLOCKQUOTE>
+
+Creating a mail file only...<BR><BR>
+
+<BLOCKQUOTE>&lt;iFUNCCALL ALIAS="iMSMail" 
+SENDTO="recipient@example.com" 
+SENDFROM="Howdy &lt;howdy@example.com&gt;" 
+REPLYTO="inquiries@example.com" 
+ORGANIZATION="Example, Inc." 
+SUBJECT="Test Email" 
+BODY=`Testing...` 
+CREATEMAILFILEONLY="YES" 
+GETMAILFILENAME="YES" 
+OUTVAR="MFN"&gt;
+</BLOCKQUOTE>
+
+Using a pre-created mail content file for sending...<BR><BR>
+
+<BLOCKQUOTE>&lt;iFUNCCALL ALIAS="iMSMail" 
+SMTPTO="bob@example.com" 
+SMTPFROM="jeb@example.com" 
+FAILTO="bounced@example.com" 
+WARNTO="bounced@example.com" 
+HOSTNAME="example.com" 
+PARSETOKENS="YES" 
+TOKENS="Name,Company" 
+TOKENVALUES="Bob Saget,Eddie's Plumbing" 
+CREATEMAILFILEONLY="NO" 
+USEMAILFILENAME=":MFN"&gt;
+</BLOCKQUOTE>
+
+Sending another email using the same pre-created mail content file...<BR><BR>
+
+<BLOCKQUOTE>&lt;iFUNCCALL ALIAS="iMSMail" 
+SMTPTO="sue@example.com" 
+SMTPFROM="bounce-3-222222@example.com" 
+FAILTO="bounce-3-222222@example.com" 
+WARNTO="bounce-3-222222@example.com" 
+HOSTNAME="example.com" 
+PARSETOKENS="YES" 
+TOKENS="Name,UnSubLink" 
+TOKENVALUES="Sue Jones,http://www.unsubscribeme.com/process.ihtml?email=sue@example.com" 
+CREATEMAILFILEONLY="NO" 
+USEMAILFILENAME=":MFN"&gt;
+</BLOCKQUOTE>
+
+Sending a normal email directly (i.e. emulate iMAIL)...<BR><BR>
+
+<BLOCKQUOTE>&lt;iFUNCCALL ALIAS="iMSMail" 
+SENDTO="jeb@example.com" 
+SENDFROM="bob@example.com" 
+SUBJECT="Howdy, Jeb!" 
+BODY=`Here's the body.`&gt;
+</BLOCKQUOTE>
+
+<BR></BODY></HTML>

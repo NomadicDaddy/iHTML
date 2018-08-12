@@ -1,0 +1,39 @@
+<iREMBLOCK>
+coolNotice Function v1.01.45.1
+Created by Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="coolNotice"
+ NOTICE="text to display"	()
+ [BGCOLOR="hex triplet"]		(#FFFFCC)
+ [WIDTH="pixels or %"]		(100%)
+ [FONTFACE="font"]			(Arial, Helvetica)
+ [FONTSIZE="size"]			(-1)
+ [FONTCOLOR="color"]		(#000000)
+ [CENTER="TRUE or FALSE"]	(FALSE)
+ [NOWIDTH="TRUE or FALSE"]	(FALSE)
+
+Revision History:
+ 1.0.172.1	-- Original. [PB]
+ 1.01.45.1	-- Added NOWIDTH. [PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="coolNotice"><iFORMAT>
+	<iDEFAULT NAME="NOTICE" VALUE="No text to display provided.">
+	<iDEFAULT NAME="BGCOLOR" VALUE="#FFFFCC">
+	<iDEFAULT NAME="WIDTH" VALUE="100%">
+	<iDEFAULT NAME="FONTFACE" VALUE="Arial, Helvetica">
+	<iDEFAULT NAME="FONTSIZE" VALUE="-1">
+	<iDEFAULT NAME="FONTCOLOR" VALUE="#000000">
+	<iDEFAULT NAME="CENTER" VALUE="">
+	<iDEFAULT NAME="NOWIDTH" VALUE="">
+	<iIF COND=":CENTER"><iSET CENTER=" ALIGN=CENTER"></iIF>
+	<iIF COND=":NOWIDTH"><iSET WIDTH=""><iELSE><iSET WIDTH=` WIDTH=":WIDTH"`></iIF>
+	<TABLE :WIDTH BORDER=1 CELLSPACING=0 CELLPADDING=5 BGCOLOR=":BGCOLOR">
+	<TR BGCOLOR=":BGCOLOR">
+		<TD :CENTER><FONT FACE=":FONTFACE" SIZE=":FONTSIZE" COLOR=":FONTCOLOR">
+			:NOTICE
+		</FONT></TD>
+	</TR>
+	</TABLE>
+</iFORMAT></iFUNCTION ALIAS="coolNotice">

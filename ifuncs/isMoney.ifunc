@@ -1,0 +1,37 @@
+<iREMBLOCK>
+isNumber Function v1.0.109.1
+Created by Vegard Riseng.  iFunc'd by Phillip Beazley.
+
+Syntax:
+ iFUNCCALL ALIAS="isMoney"
+ SRC="string to test"
+
+Results:
+ 0 = FALSE	Not a valid U.S. money/currency value.
+ 1 = TRUE		Is a valid U.S. money/currency value.
+
+Revision History:
+ 1.0.109.1	-- Original. [VR/PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="isMoney"><iFORMAT>
+
+	<iIF COND=<iISDIGIT SRC=":SRC"> ALIAS="isMoney">
+		1
+	<iELSE ALIAS="isMoney">
+		<iSTRKEEP KEEP="." SRC=":SRC" OUTVAR="temp1">
+		<iSTRKEEP OMIT="." SRC=":SRC" OUTVAR="temp2">
+		<iSTRLEN SRC=":temp1" OUTVAR="temp1">
+		<iISDIGIT SRC=":temp2" OUTVAR="temp2">
+		<iIF EXPR="(:temp1 LE 1) AND (:temp2 EQ TRUE)" ALIAS="isDecimal">
+			<iIF EXPR='<iSTRLEN SRC=`<iSTRRIGHT SRC=":SRC" NUM=<iEVAL EXPR='<iSTRLEN SRC=":SRC">-<iSTRIN SRC=":SRC" DST=".">'>>`> > 2' ALIAS="tooPrecise">
+				0
+			<iELSE ALIAS="tooPrecise">
+				1
+			</iIF ALIAS="tooPrecise">
+		<iELSE ALIAS="isDecimal">
+			0
+		</iIF ALIAS="isDecimal">
+	</iIF ALIAS="isMoney">
+
+</iFORMAT></iFUNCTION ALIAS="isMoney">

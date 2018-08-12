@@ -1,0 +1,24 @@
+<!iHTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Untitled</title>
+</head>
+
+<body>
+<iINCLUDE NAME="checkEmail.ifunc">
+
+
+<iSET email="vegard@fagernes.com">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+<iSET email="v@f.no">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+<iSET email="@fagernes.com">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+<iSET email="vegard@fage@rnes.com">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+<iSET email="vegard@fagernescom">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+<iSET email="vegard@.com">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+<iSET email="vegard@com.">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+<iSET email="v#¤%egard@fagernes.com">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+<iSET email="">:email is <iIF COND=<iFUNCCALL ALIAS="checkEmail" EMAIL=':email'>>VALID<iELSE>INVALID</iIF><BR>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<iREMBLOCK>
+phoneFormatUS Function v1.0.78.1
+Created by Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="phoneFormatUS"
+ SRC="unformated phone number"
+ FMT=""						("(AAA) EEE-NNNN")
+
+Results:
+ Returns formatted US phone number.
+
+Revision History:
+ 1.0.78.1		-- Original. [PN]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="phoneFormatUS"><iFORMAT>
+
+	<iDEFAULT NAME="SRC" VALUE="">
+	<iDEFAULT NAME="FMT" VALUE="(AAA) EEE-NNNN">
+	<iSET AAA="" EEE="" NNNN="" ZZZ="">
+
+	<iIF NOTCOND=<iSTRCMP SRC=":SRC" DST=""> ALIAS="isNumber">
+
+		<iSTRKEEP SRC=":SRC" KEEP="0123456789" OUTVAR="SRC">
+		<iSTRLEN SRC=":SRC" OUTVAR="length">
+
+		<iIF COND=<iSTRCMP SRC=`<iSTRLEFT SRC=":SRC" NUM=1>` DST="1"> ALIAS="has1">
+			<iEVAL EXPR=':length - 1' OUTVAR="length">
+			<iSTRRIGHT SRC=":SRC" NUM=:length OUTVAR="SRC">
+		</iIF ALIAS="has1">
+
+		<iIF EXPR=':length > 10' ALIAS="tooBig">
+			<iSTRRIGHT SRC=":SRC" NUM=<iEVAL EXPR=':length - 10'> OUTVAR="ZZZ">
+			<iSTRLEFT SRC=":SRC" NUM=10 OUTVAR="SRC">
+			<iSET length=10>
+		</iIF ALIAS="tooBig">
+
+		<iIF EXPR=':length = 7 OR :length = 10' ALIAS="isValid">
+
+			<iIF EXPR=':length = 10' ALIAS="hasAC">
+				<iSTRSPAN SRC=":SRC" FIRST=1 NUM=3 OUTVAR="AAA">
+				<iSTRSPAN SRC=":SRC" FIRST=4 NUM=3 OUTVAR="EEE">
+				<iSTRSPAN SRC=":SRC" FIRST=7 NUM=4 OUTVAR="NNNN">
+			<iELSE ALIAS="hasAC">
+				<iSTRSPAN SRC=":SRC" FIRST=1 NUM=3 OUTVAR="EEE">
+				<iSTRSPAN SRC=":SRC" FIRST=4 NUM=4 OUTVAR="NNNN">
+			</iIF ALIAS="hasAC">
+
+			<iREPLACE VAR="FMT" SRC="AAA" DST=":AAA">
+			<iREPLACE VAR="FMT" SRC="EEE" DST=":EEE">
+			<iREPLACE VAR="FMT" SRC="NNNN" DST=":NNNN">
+			<iREPLACE VAR="FMT" SRC="ZZZ" DST=":ZZZ">
+
+			:FMT
+
+		<iELSEIF EXPR=':length > 7 AND 10 > :length' ALIAS="isValid">
+			Number Not Valid
+		<iELSEIF EXPR='7 > :length' ALIAS="isValid">
+			Number Too Small
+		</iIF ALIAS="isValid">
+
+	</iIF ALIAS="isNumber">
+
+</iFORMAT></iFUNCTION ALIAS="phoneFormatUS">

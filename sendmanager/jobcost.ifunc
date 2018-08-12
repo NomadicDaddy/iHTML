@@ -1,0 +1,36 @@
+<iREMBLOCK>
+SendManager Job Cost Calculation Function v1.03.323.1
+
+Syntax:
+ iFUNCTION ALIAS="jobCost"
+ APPCONN="dbConn to use"      ()
+ PIECES="number to be sent"   (0)
+ BYTES="email size in bytes"  (0)
+ GROUP="which price group"    ()
+
+Revision History:
+ 1.01.200.1	-- Original. [PB]
+ 1.02.284.1	-- Added multiple price groups. [PB]
+ 1.03.323.1	-- Fixed error on zero sendable pieces/bytes. [PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="jobCost"><iFORMAT>
+	<iDEFAULT NAME="APPCONN" VALUE="">
+	<iDEFAULT NAME="PIECES" VALUE="1">
+	<iIF EXPR='1 GT :PIECES'><iSET PIECES=1></iIF>
+	<iDEFAULT NAME="BYTES" VALUE="1">
+	<iIF EXPR='1 GT :BYTES'><iSET BYTES=1></iIF>
+	<iDEFAULT NAME="GROUP" VALUE="">
+	<iEVAL EXPR=':BYTES/1024' PREC=2 OUTVAR="kilobytes">
+	<iEVAL EXPR=':kilobytes - 1' PREC=2 OUTVAR="overSize">
+	<iIF EXPR='1 GT :overSize'><iSET overSize=0></iIF>
+	<iSQL DBNAME=":appConn" SQL="EXEC dbo.getCost:GROUP :PIECES, :overSize ;" ALIAS="getPricing">
+	<iSQLFETCH ALIAS="getPricing">
+	<iEVAL EXPR='0.:getPricing_pieceCost' PREC=3 OUTVAR="pieceCost">
+	<iEVAL EXPR=':pieceCost * :PIECES' PREC=2 OUTVAR="runCharge">
+	<iIF EXPR=':overSize' ALIAS="addOver">
+		<iEVAL EXPR=':runCharge + (:PIECES * (0.:getPricing_additionalKBCost * :overSize * :getPricing_multiplier))' PREC=2 OUTVAR="runCharge">
+	</iIF ALIAS="addOver">
+	</iSQL ALIAS="getPricing">
+	:runCharge
+</iFORMAT></iFUNCTION ALIAS="jobCost">

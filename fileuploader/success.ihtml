@@ -1,0 +1,15 @@
+<!iHTML CACHE=TRUE><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML><HEAD><TITLE>File Upload - Success</TITLE></HEAD><BODY>
+
+Your file, :FName, was successfully uploaded.<BR><BR>
+
+<PRE>
+<B>Filename:</B>         :FName
+<B>File Size:</B>        :Size
+<B>Logged In From:</B>   <iIP ADDRESS=":i_ip">
+<B>Date:</B>             <iDATE>
+<B>Time:</B>             <iTIME>
+</PRE>
+
+<A HREF="index.html">Click here to upload another file.</A> - <A HREF="files/">Click here to browse files.</A>
+
+</BODY></HTML>

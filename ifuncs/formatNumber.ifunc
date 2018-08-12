@@ -1,0 +1,57 @@
+<iREMBLOCK>
+formatNumber Function v1.02.124.1
+Created by Vegard Riseng.
+
+Syntax:
+ iFUNCTION ALIAS="formatNumber"
+ NUMBER="number to format"		()
+ SEPERATOR="separator to use"		(,)
+
+Results:
+ Formatted number or error.
+
+Revision History:
+ 1.0.x.1		-- Original. [VR]
+ 1.01.124.1	-- Fixed 'less than 4 digit' bug. [PB]
+ 1.02.124.1	-- Added support for decimal places. [PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="formatNumber"><iFORMAT>
+
+	<iDEFAULT NAME="NUMBER" VALUE="0">
+	<iDEFAULT NAME="SEPERATOR" VALUE=",">
+	<iSET result="ERROR" fraction="">
+
+	<iSTRKEEP KEEP="0123456789." SRC=":number" OUTVAR="NUMBER">
+
+	<iSTRIN SRC=":NUMBER" DST="." OUTVAR="decimalPoint">
+	<iIF COND=:decimalPoint>
+		<iSTRRIGHT SRC=":NUMBER" NUM=<iEVAL EXPR='<iSTRLEN SRC=":NUMBER"> - :decimalPoint + 1'> OUTVAR="fraction">
+		<iSTRLEFT SRC=":NUMBER" NUM=<iEVAL EXPR=':decimalPoint - 1'> OUTVAR="NUMBER">
+	</iIF>
+
+	<iSTRLEN SRC=":number" OUTVAR="numberLength">
+	<iIF COND=:numberLength><iSET result=""></iIF>
+	<iEVAL EXPR=':numberLength GT 3' OUTVAR="doSeperator">
+	<iIF COND=:doSeperator ALIAS="isBigEnough">
+		<iWHILE ALIAS="doSeperator">
+			<iSTRSPAN FIRST=<iEVAL EXPR=':numberLength - 2'> NUM=3 SRC=":number" OUTVAR="result2">
+			<iIF COND=<iSTRLEN SRC=":result">>
+				<iSET result=":result2:seperator:result">
+			<iELSE>
+				<iSET result=":result2">
+			</iIF>		
+			<iEVAL EXPR=':numberLength - 3' OUTVAR="numberLength">
+			<iEVAL EXPR=':numberLength GT 3' OUTVAR="doSeperator">
+		</iWHILE ALIAS="doSeperator">
+		<iIF EXPR=':numberLength GE 1'>
+			<iSTRLEFT SRC=":number" NUM=":numberLength" OUTVAR="result2">
+			<iSET result=":result2:seperator:result">
+		</iIF>
+	<iELSE ALIAS="isBigEnough">
+		<iSET result=":NUMBER">
+	</iIF ALIAS="isBigEnough">
+
+	:result:fraction
+	
+</iFORMAT></iFUNCTION ALIAS="formatNumber">

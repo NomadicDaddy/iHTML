@@ -1,0 +1,56 @@
+<iREMBLOCK>
+textFromHTML Function v1.0.177.1
+Created by Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="textFromHTML"
+ SRC="HTML content to convert"	()
+ [BREAKS="true/false"]			(true)
+ [PARAGRAPHS="true/false"]		(true)
+ [STRIPHTML="true/false"]		(true)
+
+Results:
+ Returns text from HTML content.
+
+Revision History:
+ 1.0.177.1	-- Original. [PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="textFromHTML"><iFORMAT>
+
+	<iDEFAULT NAME="SRC" VALUE="">
+	<iDEFAULT NAME="BREAKS" VALUE="TRUE">
+	<iDEFAULT NAME="PARAGRAPHS" VALUE="TRUE">
+	<iDEFAULT NAME="STRIPHTML" VALUE="TRUE">
+
+	<iREM -- Convert Line Breaks to CR/LF -- >
+	<iIF COND=:BREAKS ALIAS="doBreaks">
+		<iREPLACE VAR="SRC" SRC="<BR>" DST=":i$crlf">
+	</iIF ALIAS="doBreaks">
+
+	<iREM -- Convert Paragraphs to CR/LF Pair -- >
+	<iIF COND=:PARAGRAPHS ALIAS="doParagraphs">
+		<iREPLACE VAR="SRC" SRC="<P>" DST=":i$crlf:i$crlf">
+	</iIF ALIAS="doParagraphs">
+
+	<iREM -- Strip HTML -- >
+	<iIF COND=:STRIPHTML ALIAS="doStrip">
+		<CFSET PlainTextMessage = ReReplaceNoCase(PlainTextMessage , "<[^>]*>", "", "all")>
+		
+	</iIF ALIAS="doStrip">
+
+	:SRC
+
+</iFORMAT></iFUNCTION ALIAS="textFromHTML">
+
+
+--
+
+<CFSET x = FindNoCase("<body",HTMLMessage)>
+<CFSET strPlainTextMessage = RemoveChars(HTMLMessage, 1, x-1)>
+<CFSET strPlainTextMessage = Replace(strPlainTextMessage,chr(13),"","all")>
+<CFSET strPlainTextMessage = Replace(strPlainTextMessage,chr(10),"","all")>
+<CFSET strPlainTextMessage = ReplaceNoCase(strPlainTextMessage,"<br>",chr(13)&chr(10),"all")>
+<CFSET strPlainTextMessage = ReplaceNoCase(strPlainTextMessage,"<p>",chr(13)&chr(10)&chr(13)&chr(10),"all")>
+<CFSET strPlainTextMessage = ReReplaceNoCase(strPlainTextMessage, "&nbsp;", " ", "all")>
+<CFSET strPlainTextMessage = ReReplaceNoCase(strPlainTextMessage, "<[^>]*>", "", "all")>

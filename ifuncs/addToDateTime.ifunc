@@ -1,0 +1,147 @@
+<iREMBLOCK>
+addToDateTime Function v1.1.172.1
+Created by Vegard Riseng and Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="addToDateTime"
+ [FMT="string"]			(%m/%d/%Y %H:%M:%S)
+ [DATE="mm/dd/yyyy hh:mm:ss"]	(Current date/time)
+ [DAYS="int"]				(0)
+ [MONTHS="int"]			(0)
+ [YEARS="int"]				(0)
+ [HOURS="int"]				(0)
+ [MINUTES="int"]			(0)
+ [SECONDS="int"]			(0)
+
+Revision History:
+ 1.0.19.1		-- Original. [VR]
+ 1.1.21.1		-- Addition of fmt argument and time structs. [PB]
+ 1.1.22.2		-- Optimizing and bugfixing. [VR]
+			-- Addition of new bugs.  ;) [PB]
+ 1.1.23.1		-- Strip all space on output and one minor bugfix. [PB]
+ 1.1.169.1	-- Fixed bug with time addition. [PB]
+ 1.1.171.1	-- Workaround whitespace stripping bug caused by iFORMAT [VR/PB]
+ 1.1.172.1	-- Fixed one-digit hour output between 00:00 and 9:59 [VR]
+ 			-- Fixed space delimiter bug in default datetime. [VR]
+			-- Fixed negative hour bug in 12 hour clock formatting. [VR]
+			-- Fixed wrong AM/PM switching. [VR]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="addToDateTime"><iFORMAT>
+	<iDEFAULT NAME="fmt" VALUE="%m/%d/%Y %H:%M:%S">
+	<iDEFAULT NAME="date" VALUE='<iDATETIME FMT="%m/%d/%Y %H:%M:%S">'>
+	<iDEFAULT NAME="years" VALUE="0">
+	<iDEFAULT NAME="months" VALUE="0">
+	<iDEFAULT NAME="days" VALUE="0">
+	<iDEFAULT NAME="hours" VALUE="0">
+	<iDEFAULT NAME="minutes" VALUE="0">
+	<iDEFAULT NAME="seconds" VALUE="0">
+
+	<iDATE DATE=":date" FMT="%Y" OUTVAR="y">
+	<iDATE DATE=":date" FMT="%m" OUTVAR="m">
+	<iDATE DATE=":date" FMT="%d" OUTVAR="d">
+	<iEVAL EXPR=":y + :years" OUTVAR="y">
+	<iEVAL EXPR=":m + :months" OUTVAR="m">
+	<iEVAL EXPR=":d + :days" OUTVAR="d">
+
+	<iSTRIN SRC=":date" DST=" " OUTVAR="spaceLoc">
+	<iSTRSPAN SRC=":date" FIRST=<iEVAL EXPR=':spaceLoc + 1'> NUM=<iEVAL EXPR='<iSTRLEN SRC=":date"> - :spaceLoc'> OUTVAR="time">
+	<iTIME TIME=":time" FMT="%H" OUTVAR="h">
+	<iTIME TIME=":time" FMT="%M" OUTVAR="n">
+	<iTIME TIME=":time" FMT="%S" OUTVAR="s">
+	<iEVAL EXPR=":h + :hours" OUTVAR="h">
+	<iEVAL EXPR=":n + :minutes" OUTVAR="n">
+	<iEVAL EXPR=":s + :seconds" OUTVAR="s">
+
+	<iREM -- Add Seconds -- >
+	<iFLOOR VALUE=<iEVAL EXPR=":s / 60" PREC="2"> OUTVAR="addMinute">
+	<iWHILE ALIAS="addMinute">
+		<iEVAL EXPR=":n + 1" OUTVAR="n">
+		<iEVAL EXPR=":s - 60" OUTVAR="s">
+		<iFLOOR VALUE=<iEVAL EXPR=":s / 60" PREC="2"> OUTVAR="addMinute">
+	</iWHILE ALIAS="addMinute">
+
+	<iREM -- Add Minutes -- >
+	<iFLOOR VALUE=<iEVAL EXPR=":n / 60" PREC="2"> OUTVAR="addHour">
+	<iWHILE ALIAS="addHour">
+		<iEVAL EXPR=":h + 1" OUTVAR="h">
+		<iEVAL EXPR=":n - 60" OUTVAR="n">
+		<iFLOOR VALUE=<iEVAL EXPR=":n / 60" PREC="2"> OUTVAR="addHour">
+	</iWHILE ALIAS="addHour">
+
+	<iREM -- Add Hours -- >
+	<iFLOOR VALUE=<iEVAL EXPR=":h / 24" PREC="2"> OUTVAR="addDay">
+	<iWHILE ALIAS="addDay">
+		<iEVAL EXPR=":d + 1" OUTVAR="d">
+		<iEVAL EXPR=":h - 24" OUTVAR="h">
+		<iFLOOR VALUE=<iEVAL EXPR=":h / 24" PREC="2"> OUTVAR="addDay">
+	</iWHILE ALIAS="addDay">
+
+	<iREM -- Add Years -- >
+	<iFLOOR VALUE=<iEVAL EXPR=":m / 13" PREC="2"> OUTVAR="addYear">
+	<iWHILE ALIAS="addYear">
+		<iEVAL EXPR=":y + 1" OUTVAR="y">
+		<iEVAL EXPR=":m - 12" OUTVAR="m">
+		<iFLOOR VALUE=<iEVAL EXPR=":m / 13" PREC="2"> OUTVAR="addYear">
+	</iWHILE ALIAS="addYear">
+
+	<iREM -- Add Months -- >
+	<iFLOOR VALUE=<iEVAL EXPR=`:d / (<iDATEEXT DATE=':m/1/:y' TYPE=DAYSINMONTH> + 1)` PREC="3"> OUTVAR="addMonth">
+	<iWHILE ALIAS="addMonth">
+		<iEVAL EXPR=`:d - <iDATEEXT DATE=':m/01/:y' TYPE=DAYSINMONTH>` OUTVAR="d">
+		<iEVAL EXPR=":m + 1" OUTVAR="m">
+		<iIF EXPR=":m GT 12" ALIAS="addToYear">
+			<iEVAL EXPR=":y + 1" OUTVAR="y">
+			<iEVAL EXPR=":m - 12" OUTVAR="m">
+		</iIF ALIAS="addToYear">
+		<iFLOOR VALUE=<iEVAL EXPR=`:d / (<iDATEEXT DATE=':m/01/:y' TYPE=DAYSINMONTH> + 1)` PREC="3"> OUTVAR="addMonth">
+	</iWHILE ALIAS="addMonth">
+
+	<iREM -- Make Two-Digits -- >
+	<iSTRJUST SRC=":s" TYPE=RIGHT LEN=2 PAD="0" OUTVAR="s">
+	<iSTRJUST SRC=":n" TYPE=RIGHT LEN=2 PAD="0" OUTVAR="n">
+	<iSTRJUST SRC=":h" TYPE=RIGHT LEN=2 PAD="0" OUTVAR="h">
+	<iSTRJUST SRC=":d" TYPE=RIGHT LEN=2 PAD="0" OUTVAR="d">
+	<iSTRJUST SRC=":m" TYPE=RIGHT LEN=2 PAD="0" OUTVAR="m">
+
+	<iREM -- Use Format String -- >
+	<iREPLACE VAR="fmt" SRC="%c" DST=":m/:d/:y :h::n::s" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%d" DST=":d" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%H" DST=":h" CASE=TRUE>
+	<iIF COND=<iSTRIN SRC=":fmt" DST="%I"> ALIAS="12hr">
+		<iIF EXPR=":h GT 12" ALIAS="isPM">
+			<iEVAL EXPR=":h - 12" OUTVAR="i">
+		<iELSE ALIAS="isPm">
+			<iIF EXPR=":h EQ 0" ALIAS="isMidnight">
+				<iSET i="12">
+			<iELSE ALIAS="isMidnight">
+				<iSET i=':h'>
+			</iIF ALIAS="isMidnight">
+		</iIF ALIAS="isPm">
+		<iREPLACE VAR="fmt" SRC="%I" DST=':i' CASE=TRUE>
+	</iIF ALIAS="12hr">
+	<iREPLACE VAR="fmt" SRC="%m" DST=":m" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%M" DST=":n" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%p" DST=<iIF EXPR=':h GE 12'>pm<iELSE>am</iIF> CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%S" DST=":s" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%x" DST=":m/:d/:y" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%X" DST=":h::n::s" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%y" DST=<iSTRRIGHT SRC=":y" NUM=2> CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%Y" DST=":y" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%%" DST="%" CASE=TRUE>
+
+	<iREM -- Strip Unsupported Format Variables -- >
+	<iREPLACE VAR="fmt" SRC="%a" DST="" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%A" DST="" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%b" DST="" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%B" DST="" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%j" DST="" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%U" DST="" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%w" DST="" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%W" DST="" CASE=TRUE>
+	<iREPLACE VAR="fmt" SRC="%Z" DST="" CASE=TRUE>
+
+	<iREM -- Output Final String -- >
+	:fmt
+
+</iFORMAT></iFUNCTION ALIAS="addToDateTime">

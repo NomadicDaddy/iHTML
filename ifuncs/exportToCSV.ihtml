@@ -1,0 +1,51 @@
+<iINCLUDE NAME="errorHandler.inc">
+<iINCLUDE NAME="exportToCSV.ifunc">
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML><HEAD><TITLE></TITLE></HEAD><BODY BGCOLOR="#FFFFFF">
+
+<PRE>
+exportToCSV Function v1.3.254.1
+Created by Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="exportToCSV"
+ [DBCONN="connection string"]			()
+ [DBNAME="datasource"]				()
+ [LOGIN="username/password"]			()
+ [QUALIFIER="database file or blank"]	()
+ TABLE="table in database"			()
+ [TITLES="column titles"]			(actual column names)
+ [COLUMNS="list of columns to export"]	(*)
+ [FILENAME="file to export to"]		(export.csv)
+ [SORTORDER="columns to sort by"]		()
+
+Results:
+ Nothing, if successful.  An error message if a problem occurred.
+
+Requirements:
+ 1. Either a valid connection string (DBCONN) or datasource name (DBNAME), username/password (LOGIN) if needed and qualifier (QUALIFIER) if needed.
+ 2. Valid table name in database to export from.
+
+Revision History:
+ 1.0.129.1	-- Original. [PB]
+ 1.1.176.1	-- Fixed problem with data containing commas. [PB]
+ 1.2.334.1	-- Added sorting. [PB]
+ 1.3.354.1	-- Added database connection string support. [PB]
+</PRE>
+
+<B>Examples:</B><BR><BR>
+This following example demonstrates the use of the <B>exportToCSV</B> function.<BR><BR>
+
+<CODE>
+&lt;iINCLUDE NAME="exportToCSV.ifunc"&gt;<BR><BR>
+
+<TABLE BORDER=0 CELLSPACING=3 CELLPADDING=2>
+<TR><TD>&lt;iFUNCCALL ALIAS="exportToCSV" DBNAME="test" QUALIFIER="test.mdb" TABLE="test"&gt;</TD><TD>Exports all columns (using actual column names for the export) of table 'test' in Access database 'test' to 'export.csv'.</TD></TR>
+<TR><TD>&lt;iFUNCCALL ALIAS="exportToCSV" DBNAME="test" QUALIFIER="test.mdb" TABLE="test" TITLES="ID,UserName" COLUMNS="id,username" FILENAME="export2.csv"&gt;</TD><TD>Exports two columns (using specified column names for the export) of table 'test' in Access database 'test' to a specified file.</TD></TR>
+<TR><TD>&lt;iFUNCCALL ALIAS="exportToCSV" DBNAME="test" LOGIN="test/test" TABLE="test" COLUMNS="id,username,password"&gt;</TD><TD>Exports three columns (using actual column names for the export) of table 'test' in SQL Server database 'test' to 'export.csv'.</TD></TR>
+<TR><TD>&lt;iFUNCCALL ALIAS="exportToCSV" DBNAME="test" LOGIN="test/test" TABLE="test"&gt;</TD><TD>Exports all columns (using actual column names for the export) of table 'test' in SQL Server database 'test' to 'export.csv'.</TD></TR>
+</TABLE>
+
+</CODE>
+
+</BODY></HTML>

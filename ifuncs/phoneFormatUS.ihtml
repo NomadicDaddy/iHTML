@@ -1,0 +1,40 @@
+<iINCLUDE NAME="errorHandler.inc">
+<iINCLUDE NAME="phoneFormatUS.ifunc">
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML><HEAD><TITLE></TITLE></HEAD><BODY BGCOLOR="#FFFFFF">
+
+<PRE>
+phoneFormatUS Function v1.0.78.1
+Created by Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="phoneFormatUS"
+ SRC="unformated phone number"
+ FMT=""						("(AAA) EEE-NNNN")
+
+Results:
+ Returns formatted US phone number.
+
+Revision History:
+ 1.0.78.1		-- Original. [PN]
+</PRE>
+
+<B>Examples:</B><BR><BR>
+This following examples demonstrate various uses of the <B>phoneFormatUS</B> function.<BR><BR>
+
+<TABLE BORDER=0 CELLSPACING=3 CELLPADDING=2>
+<TR><TD>727-578-9600</TD><TD>(converting to AAA-EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="727-578-9600" FMT="AAA-EEE-NNNN"></TD></TR>
+<TR><TD>727-578-9600 x204</TD><TD>(converting to AAA-EEE-NNNN ext ZZZ)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="727-578-9600 x204" FMT="AAA-EEE-NNNN ext ZZZ"></TD></TR>
+<TR><TD>727/578-9600</TD><TD>(converting to AAA-EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="727/578-9600" FMT="AAA-EEE-NNNN"></TD></TR>
+<TR><TD>(727)578-9600</TD><TD>(converting to AAA-EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="(727)578-9600" FMT="AAA-EEE-NNNN"></TD></TR>
+<TR><TD>(727) 578-9600</TD><TD>(converting to AAA-EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="(727) 578-9600" FMT="AAA-EEE-NNNN"></TD></TR>
+<TR><TD>1-727-578-9600</TD><TD>(converting to AAA-EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="1-727-578-9600" FMT="AAA-EEE-NNNN"></TD></TR>
+<TR><TD>727-578-9600</TD><TD>(converting to (AAA) EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="727-578-9600"></TD></TR>
+<TR><TD>727-578-9600 x204</TD><TD>(converting to (AAA) EEE-NNNN xZZZ)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="727-578-9600 x204" FMT="(AAA) EEE-NNNN xZZZ"></TD></TR>
+<TR><TD>727/578-9600</TD><TD>(converting to (AAA) EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="727/578-9600"></TD></TR>
+<TR><TD>(727)578-9600</TD><TD>(converting to (AAA) EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="(727)578-9600"></TD></TR>
+<TR><TD>(727) 578-9600</TD><TD>(converting to (AAA) EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="(727) 578-9600"></TD></TR>
+<TR><TD>1-727-578-9600</TD><TD>(converting to (AAA) EEE-NNNN)</TD><TD><iFUNCCALL ALIAS="phoneFormatUS" SRC="1-727-578-9600"></TD></TR>
+</TABLE>
+
+</BODY></HTML>

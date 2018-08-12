@@ -1,0 +1,100 @@
+<iREMBLOCK>
+exportToCSV Function v1.3.254.1
+Created by Phillip Beazley.
+
+Syntax:
+ iFUNCTION ALIAS="exportToCSV"
+ [DBCONN="connection string"]			()
+ [DBNAME="datasource"]				()
+ [LOGIN="username/password"]			()
+ [QUALIFIER="database file or blank"]	()
+ TABLE="table in database"			()
+ [TITLES="column titles"]			(actual column names)
+ [COLUMNS="list of columns to export"]	(*)
+ [FILENAME="file to export to"]		(export.csv)
+ [SORTORDER="columns to sort by"]		()
+
+Results:
+ Nothing, if successful.  An error message if a problem occurred.
+
+Requirements:
+ 1. Either a valid connection string (DBCONN) or datasource name (DBNAME), username/password (LOGIN) if needed and qualifier (QUALIFIER) if needed.
+ 2. Valid table name in database to export from.
+
+Revision History:
+ 1.0.129.1	-- Original. [PB]
+ 1.1.176.1	-- Fixed problem with data containing commas. [PB]
+ 1.2.334.1	-- Added sorting. [PB]
+ 1.3.354.1	-- Added database connection string support. [PB]
+</iREMBLOCK>
+
+<iFUNCTION ALIAS="exportToCSV"><iFORMAT>
+
+	<iREM -- Required Parameters -->
+	<iIF EXPR='NOT <iISDEF VAR="DBCONN"> AND NOT <iISDEF VAR="DBNAME">' ALIAS="required">Parameter 'DBNAME' or 'DBCONN' is required.</iIF ALIAS="required">
+	<iIF NOTCOND=<iISDEF VAR="TABLE"> ALIAS="required">Parameter 'TABLE' is required.</iIF ALIAS="required">
+
+	<iREM -- Setup Defaults -->
+	<iDEFAULT NAME="FILENAME" VALUE="export.csv">
+	<iDEFAULT NAME="DBCONN" VALUE="">
+	<iDEFAULT NAME="LOGIN" VALUE="">
+	<iDEFAULT NAME="QUALIFIER" VALUE="">
+	<iDEFAULT NAME="SORTORDER" VALUE="">
+	<iIF NOTCOND=<iSTRCMP SRC=":SORTORDER" DST="">>
+		<iSET SORTORDER="ORDER BY :SORTORDER">
+	</iIF>
+
+	<iIF NOTCOND=<iSTRCMP SRC=":DBCONN" DST=""> ALIAS="useConn">
+		<iSTRSPAN SRC=":DBCONN" FIRST=<iEVAL EXPR=`<iSTRIN SRC=":DBCONN" DST="DATABASE="> + 9`> NUM=<iEVAL EXPR=`<iSTRLEN SRC=":DBCONN"> - (<iSTRIN SRC=":DBCONN" DST="DATABASE="> + 9)`> OUTVAR="dbQualifier">
+		<iSET dbConn=`DBNAME=":DBCONN" QUALIFIER=":dbQualifier"`>
+	<iELSE ALIAS="useConn">
+		<iSET dbConn=`DBNAME=":DBNAME" LOGIN=":LOGIN" QUALIFIER=":QUALIFIER"`>
+	</iIF ALIAS="useConn">
+
+	<iREM -- Generate List of Columns, if '*' -->
+	<iIF EXPR='NOT <iISDEF VAR="COLUMNS"> OR <iSTRCMP SRC=":COLUMNS" DST="*">' ALIAS="getColumns">
+		<iSET COLUMNS="">
+		<iSQLCOLUMNS :dbConn TABLE=":TABLE" ALIAS="getCols">
+		<iSQLFETCH ALIAS="getCols">
+		<iWHILE NOTALIAS=i_sqlempty>
+			<iSET COLUMNS=":COLUMNS,:4">
+			<iSQLFETCH ALIAS="getCols">
+		</iWHILE ALIAS=i_sqlempty>
+		</iSQL ALIAS="getCols">
+	</iIF ALIAS="getColumns">
+
+	<iSET SQLCOLUMNS=":getData_:COLUMNS">
+	<iREPLACE VAR="SQLCOLUMNS" SRC="," DST=",:getData_">
+
+	<iREM -- Generate Titles, if Not Provided -->
+	<iIF EXPR='NOT <iISDEF VAR="TITLES"> OR <iSTRCMP SRC=":TITLES" DST="">' ALIAS="getTitles">
+		<iSET TITLES=":COLUMNS">
+	</iIF ALIAS="getTitles">
+
+	<iREM -- Write Header -->
+	<iFILE NAME=":FILENAME" DATA=`:TITLES:i$crlf` OP=WRITE MODE=TEXT>
+
+	<iREM -- Create Column Array -- >
+	<iLISTCREATE NAME="columnList" TYPE=VARIABLE SEP="," DELIM="" SRC="SQLCOLUMNS">
+	<iLISTGET NAME="columnList" OP=COUNT SEP="," DELIM="" OUTVAR="columnCount">
+
+	<iREM -- Parse and Export Data -->
+	<iSQL :dbConn SQL="SELECT :COLUMNS FROM :TABLE :SORTORDER ;" ALIAS="getData">
+	<iSQLFETCH ALIAS="getData">
+	<iWHILE NOTALIAS=i_sqlempty>
+		<iSET thisRow="">
+		<iLOOP INITIAL=1 FINAL=:columnCount ALIAS="columnLoop">
+			<iLISTGET NAME="columnList" OP=GETAT INDEX=:columnLoop SEP="," DELIM="" OUTVAR="curColumn">
+			<iEQ NAME="z" VALUE=":curColumn" EVAL=TRUE>
+			<iIF COND=<iSTRIN SRC=":z" DST=","> ALIAS="enclose">
+				<iSET z=`":z"`>
+			</iIF ALIAS="enclose">
+			<iSTRCAT DST="thisRow" SRC=":z,">
+		</iLOOP ALIAS="columnLoop">
+		<iSTRLEFT SRC=":thisRow" NUM=<iEVAL EXPR='<iSTRLEN SRC=":thisRow"> - 1'> OUTVAR="thisRow">
+		<iFILE NAME=":FILENAME" DATA=":thisRow:i$crlf" OP=APPEND MODE=TEXT>
+		<iSQLFETCH ALIAS="getData">
+	</iWHILE ALIAS=i_sqlempty>
+	</iSQL ALIAS="getData">
+
+</iFORMAT></iFUNCTION ALIAS="exportToCSV">
