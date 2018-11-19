@@ -1,6 +1,6 @@
 <iREMBLOCK>
 adminware File Uploader for BBSManager v1.0.259.1
-Copyright © 1999 adminware, inc.  All rights reserved.
+Copyright ï¿½ 1999 adminware, llc
 </iREMBLOCK>
 
 <iSET DoNotify=1 GoodExt="jpg;gif;png" Overwrite=1>

@@ -1,6 +1,6 @@
 <iREMBLOCK>
 adminware BBSManager
-Copyright © 1999-2002 adminware, inc.  All rights reserved.
+Copyright ï¿½ 1999-2002 adminware, llc
 </iREMBLOCK>
 
 <iSET AWPV="BBS Manager v1.40.358.1" demoDSN="adminware_bbsmanager" demo=0 notifyTo="pbeazley@onvix.com" notifyFrom="bbsmanager@adminware.com" fBase="w:\bbsmanager">
@@ -120,7 +120,7 @@ Copyright © 1999-2002 adminware, inc.  All rights reserved.
 			<iDEFAULT NAME="msg" VALUE="User Logged In:	:ULIPre:UserLoggedIn:ULIPost <FONT SIZE='-2'>(via :AuthedBy)</FONT>">
 
 			</TABLE></CENTER><BR>
-			<iIF EXPR='NOT :loadDB_HideFooter' ALIAS="HideFooter"><TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR=":loadDB_BarColor"><TD>&nbsp;<iIF COND=<iISDEF VAR="msg"> ALIAS="ShowMsg"><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#FFFFFF"><B>:msg</B></FONT></iIF ALIAS="ShowMsg"></TD><TD ALIGN=RIGHT><FONT FACE=":loadDB_BarTextFace" SIZE=":loadDB_BarTextSize" COLOR=":loadDB_BarTextColor"><B>:AWPV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B>Copyright &copy; 1999-2000 adminware, inc.	All rights reserved.</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B><A HREF="http://adminware.com/" onMouseOver="status='adminware'; return true;" onMouseOut="status='';">http://adminware.com/</A></B></FONT></TD></TR></TABLE></iIF ALIAS="HideFooter">
+			<iIF EXPR='NOT :loadDB_HideFooter' ALIAS="HideFooter"><TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR=":loadDB_BarColor"><TD>&nbsp;<iIF COND=<iISDEF VAR="msg"> ALIAS="ShowMsg"><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#FFFFFF"><B>:msg</B></FONT></iIF ALIAS="ShowMsg"></TD><TD ALIGN=RIGHT><FONT FACE=":loadDB_BarTextFace" SIZE=":loadDB_BarTextSize" COLOR=":loadDB_BarTextColor"><B>:AWPV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B>Copyright &copy; 1999-2000 adminware, llc</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B><A HREF="http://adminware.com/" onMouseOver="status='adminware'; return true;" onMouseOut="status='';">http://adminware.com/</A></B></FONT></TD></TR></TABLE></iIF ALIAS="HideFooter">
 
 		</iSQL ALIAS="loadDB">
 	<iELSE ALIAS="goodBoard2">

@@ -1,6 +1,6 @@
 <iREMBLOCK>
 adminware BBSManager (Admin Module)
-Copyright © 1999 adminware, inc.  All rights reserved.
+Copyright ï¿½ 1999 adminware, llc
 </iREMBLOCK>
 
 <iSET AWPAV="BBSManager Admin v0.9.266.1" NotifyTo="pbeazley@onvix.com" NotifyFrom="bbsmanager@adminware.com">
@@ -100,6 +100,6 @@ Copyright © 1999 adminware, inc.  All rights reserved.
 </iIF ALIAS="IsDB">
 
 <BR></TD></TR></TABLE></CENTER>
-<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR="#A0B8C8"><TD>&nbsp;<iIF COND=<iISDEF VAR="msg"> ALIAS="ShowMsg"><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#000066"><B>:msg</B></FONT></iIF ALIAS="ShowMsg"></TD><TD ALIGN=RIGHT><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#FFFFFF"><B>:AWPAV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B>Copyright &copy; 1999 adminware, inc.  All rights reserved.</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B><A HREF="http://adminware.com/" onMouseOver="status='adminware'; return true;" onMouseOut="status='';">http://adminware.com/</A></B></FONT></TD></TR></TABLE>
+<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR="#A0B8C8"><TD>&nbsp;<iIF COND=<iISDEF VAR="msg"> ALIAS="ShowMsg"><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#000066"><B>:msg</B></FONT></iIF ALIAS="ShowMsg"></TD><TD ALIGN=RIGHT><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#FFFFFF"><B>:AWPAV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B>Copyright &copy; 1999 adminware, llc</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B><A HREF="http://adminware.com/" onMouseOver="status='adminware'; return true;" onMouseOut="status='';">http://adminware.com/</A></B></FONT></TD></TR></TABLE>
 
 <iIF COND=<iISDEF VAR="debug"> ALIAS="Debug"><BR><HR NOSHADE><iHEAPDUMP HEAP=LOCAL></iIF ALIAS="Debug">

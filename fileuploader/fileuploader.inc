@@ -1,6 +1,6 @@
 <!--
 adminware File Uploader v1.3.227.1
-Copyright © 1999-2002 adminware, inc.  All rights reserved.
+Copyright ï¿½ 1999-2002 adminware, llc
 http://adminware.com/
 -->
 

@@ -1,6 +1,6 @@
 <iREMBLOCK>
 FAQ Manager Administration Module
-Copyright � 1997-2002 adminware, inc.  All rights reserved.
+Copyright � 1997-2002 adminware, llc
 </iREMBLOCK>
 
 <iSET faq_ver="v1.15.107.1">
@@ -298,6 +298,6 @@ Copyright � 1997-2002 adminware, inc.  All rights reserved.
 </TABLE></FORM>
 
 </TD></TR></TABLE></CENTER>
-<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR=":faq_bgc" ALIGN=RIGHT><TD COLSPAN=2><FONT FACE=":faq_font" SIZE="-1" COLOR="FFFFFF"><B>FAQ Manager :faq_ver</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE=":faq_font" SIZE="-2"><B>Copyright &copy; 1997-2000 adminware, inc. &nbsp;All rights reserved.</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE=":faq_font" SIZE="-2"><B><A HREF="http://www.faqmanager.com/" onMouseOver="status='FAQ Manager'; return true;" onMouseOut="status='';">http://www.faqmanager.com/</A></B></FONT></TD></TR></TABLE><BR>
+<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR=":faq_bgc" ALIGN=RIGHT><TD COLSPAN=2><FONT FACE=":faq_font" SIZE="-1" COLOR="FFFFFF"><B>FAQ Manager :faq_ver</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE=":faq_font" SIZE="-2"><B>Copyright &copy; 1997-2000 adminware, llc</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE=":faq_font" SIZE="-2"><B><A HREF="http://www.faqmanager.com/" onMouseOver="status='FAQ Manager'; return true;" onMouseOut="status='';">http://www.faqmanager.com/</A></B></FONT></TD></TR></TABLE><BR>
 
 <CENTER>For support or suggestions, please <A HREF="mailto:support@faqmanager.com" onMouseOver="status='FAQ Manager Support'; return true;" onMouseOut="status='';">click here</A>.<CENTER><BR>

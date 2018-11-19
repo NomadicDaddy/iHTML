@@ -1,6 +1,6 @@
 <iREMBLOCK>
 adminware CopyManager (Admin Module)
-Copyright © 1998-2002 adminware, inc.  All rights reserved.
+Copyright ï¿½ 1998-2002 adminware, llc
 </iREMBLOCK>
 
 <iSET AWPAV="CopyManager Admin v1.3.96.1" AWPID="copymanager" AWPD="w:\copymanager">
@@ -114,4 +114,4 @@ Copyright © 1998-2002 adminware, inc.  All rights reserved.
 </iIF ALIAS="IsDB">
 
 <BR></TD></TR></TABLE></CENTER>
-<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR="#A0B8C8"><TD>&nbsp;<iIF COND=<iISDEF VAR="msg"> ALIAS="ShowMsg"><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#000066"><B>:msg</B></FONT></iIF ALIAS="ShowMsg"></TD><TD ALIGN=RIGHT><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#FFFFFF"><B>:AWPAV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B>Copyright &copy; 2001-2002 adminware, inc.  All rights reserved.</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B><A HREF="http://adminware.com/" onMouseOver="status='adminware'; return true;" onMouseOut="status='';">http://adminware.com/</A></B></FONT></TD></TR></TABLE>
+<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR="#A0B8C8"><TD>&nbsp;<iIF COND=<iISDEF VAR="msg"> ALIAS="ShowMsg"><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#000066"><B>:msg</B></FONT></iIF ALIAS="ShowMsg"></TD><TD ALIGN=RIGHT><FONT FACE="Arial,Helvetica" SIZE="2" COLOR="#FFFFFF"><B>:AWPAV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B>Copyright &copy; 2001-2002 adminware, llc</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B><A HREF="http://adminware.com/" onMouseOver="status='adminware'; return true;" onMouseOut="status='';">http://adminware.com/</A></B></FONT></TD></TR></TABLE>

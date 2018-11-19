@@ -1,6 +1,6 @@
 <iREMBLOCK>
 adminware FormProcessor v1.0.346.3
-Copyright © 1999-2002 adminware, inc.  All rights reserved.
+Copyright ï¿½ 1999-2002 adminware, llc
 </iREMBLOCK>
 
 <iREM SQLROW DBNAME=":dsn" TABLE=":table" OP=INSERT>

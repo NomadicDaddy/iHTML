@@ -1,7 +1,7 @@
 <iREMBLOCK>
 adminware AuthManager v1.23.171.1 Authentication Module
-Copyright © 1999-2002 adminware, inc.  All rights reserved.
-Uses InFusion Authenticator, Copyright © 1999 On-Line Data Solutions, Inc.
+Copyright ï¿½ 1999-2002 adminware, llc
+Uses InFusion Authenticator, Copyright ï¿½ 1999 On-Line Data Solutions, Inc.
 </iREMBLOCK>
 
 <iINCLUDE NAME="#iauth.cfg"><iSET pass=0 abort=0 status="Failed ()">

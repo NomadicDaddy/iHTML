@@ -1,6 +1,6 @@
 <iREMBLOCK>
 adminware FAQ Manager (Engine Module)
-Copyright � 1997-2002 adminware, inc.  All rights reserved.
+Copyright � 1997-2002 adminware, llc
 </iREMBLOCK>
 
 <iSET AWPV="FAQ Manager v1.15.107.1" demoDSN="adminware_faqmgr" demoLogin="Administrator/zzz" demo=0 AWPID="faqmanager">
@@ -147,4 +147,4 @@ Copyright � 1997-2002 adminware, inc.  All rights reserved.
 
 </FONT></TD></TR></TABLE></CENTER>
 <iSET AWPVc="#FFFFFF"><iIF COND=<iSTRIN SRC=":faq_bgc" DST="FFFFFF">><iSET AWPVc="#000000"></iIF>
-<iIF NOTCOND=<iSTRCMP SRC=":hideFooter" DST="1"> ALIAS="hideFooter"><TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR=":faq_bgc" ALIGN=RIGHT><TD COLSPAN=3><FONT FACE=":faq_font" SIZE="-1" COLOR=":AWPVc"><B>:AWPV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial, Helvetica" SIZE="-2"><B>Copyright &copy; 1997-2002 adminware, inc.	&nbsp;All rights reserved.</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial, Helvetica" SIZE="-2"><B><A HREF="http://www.faqmanager.com/" onMouseOver="status='adminware :AWPV'; return true;" onMouseOut="status='';">http://www.faqmanager.com/</A></B></FONT></TD></TR></TABLE></iIF ALIAS="hideFooter">
+<iIF NOTCOND=<iSTRCMP SRC=":hideFooter" DST="1"> ALIAS="hideFooter"><TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR=":faq_bgc" ALIGN=RIGHT><TD COLSPAN=3><FONT FACE=":faq_font" SIZE="-1" COLOR=":AWPVc"><B>:AWPV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial, Helvetica" SIZE="-2"><B>Copyright &copy; 1997-2002 adminware, llc</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial, Helvetica" SIZE="-2"><B><A HREF="http://www.faqmanager.com/" onMouseOver="status='adminware :AWPV'; return true;" onMouseOut="status='';">http://www.faqmanager.com/</A></B></FONT></TD></TR></TABLE></iIF ALIAS="hideFooter">

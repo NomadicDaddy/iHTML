@@ -1,6 +1,6 @@
 <iREMBLOCK>
 adminware CopyManager (Public Module)
-Copyright © 1998-2002 adminware, inc.  All rights reserved.
+Copyright ï¿½ 1998-2002 adminware, llc
 </iREMBLOCK>
 
 <iSET AWPV="CopyManager v1.31.192.1" DemoDSN="adminware_copymanager" demo=0 AWPID="copymanager">
@@ -467,7 +467,7 @@ Copyright © 1998-2002 adminware, inc.  All rights reserved.
 
 		</iCASE ALIAS="displayStyle">
 
-		<iIF EXPR='NOT :loadDB_hideFooter' ALIAS="hideFooter"><TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR=":loadDB_barColor" ALIGN=RIGHT><TD COLSPAN=2><FONT FACE=":loadDB_barTextFace" SIZE=":loadDB_barTextSize" COLOR=":loadDB_barTextColor"><B>:AWPV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B>Copyright &copy; 1998-2002 adminware, inc.  All rights reserved.</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B><A HREF="http://adminware.com/" onMouseOver="status='adminware'; return true;" onMouseOut="status='';">http://adminware.com/</A></B></FONT></TD></TR></TABLE></iIF ALIAS="hideFooter">
+		<iIF EXPR='NOT :loadDB_hideFooter' ALIAS="hideFooter"><TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=3><TR BGCOLOR=":loadDB_barColor" ALIGN=RIGHT><TD COLSPAN=2><FONT FACE=":loadDB_barTextFace" SIZE=":loadDB_barTextSize" COLOR=":loadDB_barTextColor"><B>:AWPV</B></FONT></TD></TR><TR><TD VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B>Copyright &copy; 1998-2002 adminware, llc</B></FONT></TD><TD ALIGN=RIGHT VALIGN=TOP><FONT FACE="Arial,Helvetica" SIZE="-2"><B><A HREF="http://adminware.com/" onMouseOver="status='adminware'; return true;" onMouseOut="status='';">http://adminware.com/</A></B></FONT></TD></TR></TABLE></iIF ALIAS="hideFooter">
 
 		</iSQL ALIAS="loadDB">
 

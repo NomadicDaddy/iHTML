@@ -1,7 +1,7 @@
 <iREMBLOCK>
 adminware Cookie Authentication Front-End v1.0.342.1
-Copyright © 1999 adminware, inc.  All rights reserved.
-Uses InFusion Authenticator, Copyright © 1999 On-Line Data Solutions, Inc.
+Copyright ï¿½ 1999 adminware, llc
+Uses InFusion Authenticator, Copyright ï¿½ 1999 On-Line Data Solutions, Inc.
 </iREMBLOCK>
 
 (cookieauth:begin)

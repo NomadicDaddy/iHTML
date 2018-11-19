@@ -1,11 +1,11 @@
 <!--
 Generic Error Handler & Malicious Spider Blocker v1.4 -- iERROR Edition
-Copyright © 1998-2005 adminware, inc.  All rights reserved.
+Copyright ï¿½ 1998-2005 adminware, llc
 http://www.adminware.com/
 -->
 
 <iREM -- Malicious Spider Blocker -- >
-<iIF EXPR='NOT <iSTRCMP SRC=":i_browser" DST=""> AND (<iSTRICMP SRC="Java/1." DST=`<iSTRLEFT SRC=":i_browser" NUM="7">`> or <iSTRIN SRC="ExtractorPro,Sqworm,MuscatFerret,webtop.com,NICErsPRO,WebWeasel,EmailCollector,CherryPicker,Cherry Picker,EirGrabber,EmailSiphon,EmailWolf,Sonic Email Collector,EmailSiphon,Top10ContactBot,AnzwersCrawl,EchO!,zzZ,Exploiter,WebStripper,Hunt,LinkWalker,htdig/3.1.5 (kkinder@tridog.com),UniFind Site Spider; email spider@unifind.com,XH p(Ã$pp‰G,Scooter-W3-1.0" DST=":i_browser" CASE=FALSE>)' ALIAS="isMS">
+<iIF EXPR='NOT <iSTRCMP SRC=":i_browser" DST=""> AND (<iSTRICMP SRC="Java/1." DST=`<iSTRLEFT SRC=":i_browser" NUM="7">`> or <iSTRIN SRC="ExtractorPro,Sqworm,MuscatFerret,webtop.com,NICErsPRO,WebWeasel,EmailCollector,CherryPicker,Cherry Picker,EirGrabber,EmailSiphon,EmailWolf,Sonic Email Collector,EmailSiphon,Top10ContactBot,AnzwersCrawl,EchO!,zzZ,Exploiter,WebStripper,Hunt,LinkWalker,htdig/3.1.5 (kkinder@tridog.com),UniFind Site Spider; email spider@unifind.com,XH p(ï¿½$ppï¿½G,Scooter-W3-1.0" DST=":i_browser" CASE=FALSE>)' ALIAS="isMS">
 	<iFILE NAME="spamspider.log" DATA=`<iDATETIME>|:i_ip|<iIP ADDRESS=:i_ip>|:i_browser|:i_http_HTTP_REFERER|:i_path:i$crlf` OP=APPEND>
 	<iREDIR URL="http://disney.go.com/">
 </iIF ALIAS="isMS">
